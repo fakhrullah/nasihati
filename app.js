@@ -2,6 +2,10 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var app = express()
 var ApiV1 = '/api/v1'
+var nasihatCol = require('./nasihat_col.js')
+
+// TODO handle error on /api/v1 route
+// TODO middleware authorization on POST, PUT, DELETE method
 
 /*
  * use body parser to get data from request
@@ -18,24 +22,27 @@ app.get(ApiV1 + '/nasihat/:id', function (req, res) {
 
   console.log('show nasihat at id ' + id)
 
-  res.json({
-    id: id,
-    name: 'miaw'
-  })
+  nasihatCol.getNasihatById( parseInt(id), function (err, nasihat) {
 
-})
+    if(err) console.log('miaw');
+    res.json(nasihat);
+  });
+
+});
 
 app.put(ApiV1 + '/nasihat/:id', function (req, res) {
 
   var id = req.params['id']
-  var name = req.body['name']
 
   console.log('update nasihat at id ' + id)
 
-  res.json({
-    id: id,
-    name: name
-  })
+  nasihatCol.updateNasihatById(parseInt(id), req.body, function(err, data){
+
+    if(err) throw err;
+
+    res.json(data);
+
+  });
 
 })
 
@@ -43,9 +50,13 @@ app.post(ApiV1 + '/nasihat/', function (req, res){
 
   console.log('create new nasihat')
 
-  res.json({
-    id: 1
-  })
+  nasihatCol.createNasihat(req.body, function(err, data){
+
+    if(err) throw err;
+
+    res.json(data);
+
+  });
 
 })
 
@@ -55,8 +66,11 @@ app.delete(ApiV1 + '/nasihat/:id', function (req, res) {
 
   console.log('delete nasihat at id ' + id)
 
-  res.json({
-    id: id
+  nasihatCol.deleteNasihat(id, function(err, data){
+
+    if(err) throw err;
+    res.json(data);
+
   })
 })
 
