@@ -2,9 +2,9 @@
 
 Sebuah web yang memaparkan petikan terjemahan quran dan hadis. 
 
-Asal [nasihat web]() yang ditulis balik dengan nodejs dan mongo. Sebabnya, sistem pengaturcaraan modular dalam node js ni dapat mengurangkan kod, lalu memudahkan pengurusan.
+Asal [nasihat web](https://github.com/fakhrullah/nasihat) yang ditulis balik dengan nodejs dan mongo. Sebabnya, sistem pengaturcaraan modular dalam node js ni dapat mengurangkan kod, lalu memudahkan pengurusan.
 
-Untuk repo sebelum ini pun saya dah beritahu, web sekecil nasihat, sepatutnya dibina menggunakan [Lumen]() bukan [Laravel](). 
+Untuk repo sebelum ini pun saya dah beritahu, web sekecil nasihat, sepatutnya dibina menggunakan [Lumen](https://lumen.laravel.com/) bukan [Laravel](https://laravel.com/). 
 
 Jadi tulis semula nasihat guna node js adalah satu tindakan terbaik dan bijak.
 
@@ -18,5 +18,5 @@ Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya ak
 
 ## License
 
-Copyright 2014-2015 [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
+Copyright [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
 
