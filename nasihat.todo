@@ -3,6 +3,5 @@ CRUD/Rest-API:
   ☐ Update - PUT /api/v1/nasihat/:id @high
   ☐ Create - POST /api/v1/nasihat/:id
   ☐ Delete - DELETE /api/v1/nasihat/:id
-
-
+  ☐ error handling response json on other not available routes - use res.json
 
