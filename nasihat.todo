@@ -1,7 +1,7 @@
 CRUD/Rest-API:
-  ☐ Read - GET /api/v1/nasihat/:id @high
-  ☐ Update - PUT /api/v1/nasihat/:id @high
-  ☐ Create - POST /api/v1/nasihat/:id
-  ☐ Delete - DELETE /api/v1/nasihat/:id
+  ✔ Read - GET /api/v1/nasihat/:id @high @done (16-08-13 06:37)
+  ✔ Update - PUT /api/v1/nasihat/:id @high @done (16-08-13 06:37)
+  ✔ Create - POST /api/v1/nasihat/:id @done (16-08-13 06:37)
+  ✔ Delete - DELETE /api/v1/nasihat/:id @done (16-08-13 06:37)
   ☐ error handling response json on other not available routes - use res.json
 
