@@ -1,8 +1,8 @@
 CRUD/Rest-API:
-  ☐ Read - GET /nasihat/:id @high
-  ☐ Update - PUT /nasihat/:id @high
-  ☐ Create - POST /nasihat/:id
-  ☐ Delete - DELETE /nasihat/:id
+  ☐ Read - GET /api/v1/nasihat/:id @high
+  ☐ Update - PUT /api/v1/nasihat/:id @high
+  ☐ Create - POST /api/v1/nasihat/:id
+  ☐ Delete - DELETE /api/v1/nasihat/:id
 
 
 
