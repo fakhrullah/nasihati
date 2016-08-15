@@ -5,3 +5,28 @@ CRUD/Rest-API:
   ✔ Delete - DELETE /api/v1/nasihat/:id @done (16-08-13 06:37)
   ☐ error handling response json on other not available routes - use res.json
 
+  homepage:
+    ✔ Show different nasihat daily but do not do random. Save shown data in cookie. @done (16-08-16 04:57)
+    ☐ Design with beautiful - inspiration: https://dribbble.com/shots/1521733-Company-values-showcase https://dribbble.com/shots/1436240-Quote-App-Concept https://www.behance.net/gallery/36942689/Design-and-Creativity-Quotes https://dribbble.com/shots/1677391-Hadith-Web-App https://dribbble.com/shots/1671229-Hadith-Web-App
+    ☐ Next navigation to show next nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but donot care
+    ☐ Prev navigation to show previous nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but donot care
+    ☐ Menu button to show some navigation to other info (About, Nasihati Telegram Bot) - do not use page, just use modal prompt on same hompage - SEO? dont care!
+    ☐ 
+
+    About modal: 
+      ☐ write why I create this page 
+      ☐ how I create the page - from old Nasihat with Laravel, DaeiBot then this website
+      ☐ how I manage this website - what is my rule - quran n sahih hadith only - I write on my own not going to give others to write
+      ☐ credits for inspirational designers see above - credits for quran.com and others website that i use to get quran n hadith terjemahan - youtube channel media tajdid, sunnah, ilmu salaf, dr fathul bari (fokas)
+      ☐ ask contributions - fix spelling, fix design, improvement and feature on github
+      ☐ ask support financial - tell about cost the money and time used - tell at least I want to buy new laptop - ask money donation
+      ☐ finish About modal - menu -> About : show this About modal
+
+    NasihatBot modal:
+      ☐ what is this - write what nasihat bot do - auto send nasihat daily
+      ☐ how to use - write how to add bot in Telegram - a link to telegram.me/bot is enough 
+      ☐ why? - because we always forgot to see website
+      ☐ other feature of NasihatBot - mostly only sent nasihat text, sometime (randomly and every Friday) send nasihat image (image with quote text - beautiful)
+      ☐ other feature of NasihatBot - accept users submit image then used make it CC0 (public domain) use as image for nasihat. Also use in my photos collection website.
+
+      
