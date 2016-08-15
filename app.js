@@ -1,6 +1,9 @@
 var express = require('express')
-var bodyParser = require('body-parser')
 var app = express()
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var _ = require('lodash')
+var moment = require('moment')
 var ApiV1 = '/api/v1'
 var nasihatCol = require('./nasihat_col.js')
 
@@ -9,9 +12,75 @@ var nasihatCol = require('./nasihat_col.js')
 
 /*
  * use body parser to get data from request
+ * use cookie-parser to set and get cookie
  */
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
+
+/*
+ * set view engine
+ */
+app.set('view engine', 'pug')
+
+/**
+ * Homepage route
+ * Show a quote for today with next and previous link
+ * Today quote is determined by data in cookie/localstorage
+ */
+app.get('/',function(req,res) {
+  console.log("show a quote for today");
+
+  var todayId;
+  var todayDate = moment().format('YYYY-MM-DD');
+  console.log(todayDate);
+
+  // Show next quote compare to yesterday
+  var lastQuoteId = req.cookies.lastQuoteId;
+  var lastDayQuote = req.cookies.lastDayQuote; // date when last quote shown
+
+  if(!lastQuoteId){
+
+    // For first time user or first time device
+    console.log("1st time user");
+
+    todayId = 1;
+    res.cookie('lastQuoteId', 1);
+    res.cookie('lastDayQuote', todayDate);
+
+  } else {
+    // Repeated user
+    console.log("Repeated user");
+
+    if(moment(lastDayQuote).isSame(todayDate)){
+      // Repeated user on same day get same quote as last shown
+      todayId = parseInt(lastQuoteId);
+      console.log("Repeated user same day");
+
+    }else{
+      // Repeated user different day get to see next quote compared to last shown
+      todayId = parseInt(lastQuoteId) + 1;
+      
+      res.cookie('lastQuoteId', todayId);
+      res.cookie('lastDayQuote', todayDate);
+
+      console.log("Repeated user different day");
+
+    }
+  }
+
+  console.log("today quote id = " + todayId);
+
+  // get quote from database
+  var todayQuote = nasihatCol.getNasihatById(todayId, function(err, nasihat){
+    // render page
+    res.render('homepage', {
+      title: "Nasihat",
+      quote: nasihat.text,
+      source: nasihat.source
+    });
+  });
+});
 
 /*
  * API routes
