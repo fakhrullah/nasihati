@@ -1,0 +1,9 @@
+/*! Copyright Fakhrullah Padzil */
+
+:root{
+	--fontSans: "Open Sans", "Ubuntu", sans-serif;
+}
+
+body{
+	font-family: var(--fontSans);	
+}
