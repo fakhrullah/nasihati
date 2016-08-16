@@ -1,4 +1,5 @@
-var gulp = require('gulp'),
+var browserSync = require('browser-sync').create(),
+	gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	// uglify = require('gulp-uglify'),
 	concat = require('gulp-concat'),
@@ -23,7 +24,8 @@ gulp.task('build-css', function(){
 			discardComment:true
 		}))
 		.pipe(rename('main.min.css'))
-		.pipe(gulp.dest('public/css/'));
+		.pipe(gulp.dest('public/css/'))
+		.pipe(browserSync.stream());
 })
 
 // gulp.task('build-image', function(){
@@ -44,8 +46,18 @@ gulp.task('build-css', function(){
 
 // // Rerun the task when a file changes
 gulp.task('watch', function() {
+
+	browserSync.init({
+	    proxy: "localhost:3000"
+	});
+
+
   gulp.watch('_css/*.css', ['build-css']);
   // gulp.watch('src/js/*.js', ['build-js']);
+
+  gulp.watch("public/css/*.css").on('change', browserSync.reload);
+  // gulp.watch("public/**/*.html").on('change', browserSync.reload);
+  // gulp.watch("public/**/*.js").on('change', browserSync.reload);
 });
 
 gulp.task('default', ['watch',
