@@ -1,15 +1,28 @@
 doctype
 html
   head
-    link(rel="stylesheets" href="/css/main.css")
+    link(rel="stylesheet" href="/css/main.css")
+    link(rel="stylesheet" href="/css/font-awesome.min.css")
+    meta(name="viewport" content="width=device-width")
     title= title
 
   body
-    header.header
 
     section.main-content
 
-      h1= title
+      header.header
+        button.random #[i.fa.fa-random(aria-hidden="true")]
+        button.share #[i.fa.fa-share(aria-hidden="true")]
+
+      h1.title= title
 
       p.quote.nasihat= quote
       p.source= source
+
+      button#more.more #[i.fa.fa-ellipsis-h]
+
+    nav.nav
+      button#menu-toggle #[i.fa.fa-bars]
+      //- ul.menu
+      //-   li ABOUT
+      //-   li NASIHAT BOT

@@ -16,7 +16,7 @@ gulp.task('build-css', function(){
 		postcssNested()
 	];
 
-	return gulp.src('_css/*.css')
+	return gulp.src(['_css/normalize.css', '_css/main.css'])
 		.pipe(concat('main.css'))
 		.pipe(postCss(processors))
 		.pipe(gulp.dest('public/css/'))

@@ -2,3 +2,4 @@ node_modules/
 npm-debug.log
 ~inspiration/
 .sublime-gulp.cache
+public/font-awesome-4.6.3/
