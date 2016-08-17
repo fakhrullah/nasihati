@@ -209,3 +209,14 @@ button{
 		background-color: color(black alpha(.6));
 	}
 }
+/*======================================================================
+  Components - Vector icons
+  ======================================================================*/
+.siv{
+	fill: var(--colorFont);
+	width: 24px;
+	height: 24px;
+	@media(--desktop){
+		fill: color(white alpha(.6));
+	}
+}

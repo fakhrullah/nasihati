@@ -619,3 +619,17 @@ button:hover, button:focus {
 button:active {
     background-color: rgba(0, 0, 0, 0.6);
 }
+/*======================================================================
+  Components - Vector icons
+  ======================================================================*/
+.siv{
+	fill: rgba(255,255,255,.96);
+	width: 24px;
+	height: 24px
+}
+@media(min-width: 600px){
+
+    .siv {
+        fill: rgba(255, 255, 255, 0.6);
+    }
+	}
