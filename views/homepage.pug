@@ -2,7 +2,6 @@ doctype
 html
   head
     link(rel="stylesheet" href="/css/main.css")
-    link(rel="stylesheet" href="/css/font-awesome.min.css")
     meta(name="viewport" content="width=device-width")
     title= title
 
@@ -11,18 +10,27 @@ html
     section.main-content
 
       header.header
-        button.random #[i.fa.fa-random(aria-hidden="true")]
-        button.share #[i.fa.fa-share(aria-hidden="true")]
+        button.random
+          svg.siv.siv-random(width=24 height=24)
+            use(xlink:href="/icons/random.svg#random")
+
+        button.share
+          svg.siv.siv-share(width=24 height=24)
+            use(xlink:href="/icons/share.svg#share")
 
       h1.title= title
 
       p.quote.nasihat= quote
       p.source= source
 
-      button#more.more #[i.fa.fa-ellipsis-h]
+      button#more.more
+       svg.siv.siv-ellipsis(width=32 height=32)
+        use(xlink:href="/icons/ellipsis.svg#ellipsis")
 
     nav.nav
-      button#menu-toggle #[i.fa.fa-bars]
+      button#menu-toggle
+        svg.siv.siv-bars(width=32 height=32)
+          use(xlink:href="/icons/bars.svg#bars")
       //- ul.menu
       //-   li ABOUT
       //-   li NASIHAT BOT
