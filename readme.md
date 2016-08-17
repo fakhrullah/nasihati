@@ -2,6 +2,12 @@
 
 Sebuah web yang memaparkan petikan terjemahan quran dan hadis. 
 
+## Pra-lihat
+
+![nasihatpreview](https://cloud.githubusercontent.com/assets/5182052/17733894/93162304-64ab-11e6-8005-757c5a439c78.png)
+
+_Gambar dihasilkan menggunakan web [Am I Responsive](http://ami.responsivedesign.is/)_
+
 Asal [nasihat web](https://github.com/fakhrullah/nasihat) yang ditulis balik dengan nodejs dan mongodb. Sebabnya, sistem pengaturcaraan modular dalam node js ni dapat mengurangkan kod, lalu memudahkan pengurusan.
 
 Untuk repo sebelum ini pun saya dah beritahu, web sekecil nasihat, sepatutnya dibina menggunakan [Lumen](https://lumen.laravel.com/) bukan [Laravel](https://laravel.com/). 
