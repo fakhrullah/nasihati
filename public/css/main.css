@@ -612,6 +612,47 @@ body{
 }
 
 /*======================================================================
+  Modals (page?)
+  ======================================================================*/
+.modal{
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	-webkit-transition: ease-in 300ms top;
+	transition: ease-in 300ms top;
+
+	width: 96%;
+	height: 88%;
+	margin: 2% 2% 10% 2%;
+	box-sizing: border-box;
+	background-color: #FFF;
+	color:#333;
+
+}
+.modal .modal-nav-close{
+    float: right;
+    position: relative;
+    top:-6px;
+    right: -6px;
+    margin: 0;
+    background-color: #333;
+    font-weight: bold
+}
+.modal .modal-nav-close:hover, .modal .modal-nav-close:focus {
+    background-color: #222;
+}
+.modal .modal-nav-close:active {
+    background-color: #000;
+}
+.modal .modal-heading{}
+.modal .modal-body{}
+.modal.hidden{
+	/*display: none !important;*/
+	top: -100%;
+}
+
+/*======================================================================
   Components - Button
   ======================================================================*/
 button{
