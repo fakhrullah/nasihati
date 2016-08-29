@@ -9,10 +9,11 @@ CRUD/Rest-API:
 Homepage:
   ✔ Show different nasihat daily but do not do random. Save shown data in cookie. @done (16-08-16 04:57)
   ✔ Design with beautiful - inspiration: https://dribbble.com/shots/1521733-Company-values-showcase https://dribbble.com/shots/1436240-Quote-App-Concept https://www.behance.net/gallery/36942689/Design-and-Creativity-Quotes https://dribbble.com/shots/1677391-Hadith-Web-App https://dribbble.com/shots/1671229-Hadith-Web-App @done (16-08-17 00:55)
+  ✔ Toggle menu show and hide @done (16-08-29 18:11)
+  ☐ Menu button to show some navigation to other info (About, Nasihati Telegram Bot) - do not use page, just use modal prompt on same hompage - SEO? dont care!
   ☐ Used svg and png fallback on icon - remove font-awesome @high
   ☐ Next navigation to show next nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but do not care
   ☐ Prev navigation to show previous nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but do not care
-  ☐ Menu button to show some navigation to other info (About, Nasihati Telegram Bot) - do not use page, just use modal prompt on same hompage - SEO? dont care!
 
   About modal: 
     ☐ write why I create this page 

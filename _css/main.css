@@ -6,6 +6,7 @@
 	--fontSans: "Open Sans", Helvetica, "Ubuntu", sans-serif;
 	--fontSerif: Georgia, serif;
 	--colorFont: rgba(255,255,255,.96);
+	--colorNav: rgba(255,255,255,.70);
 }
 :root{
 	--textShadow:{
@@ -182,7 +183,26 @@ body{
 /*======================================================================
   Navigation
   ======================================================================*/
+.menu{
+	position: relative;
+	top: 0;
+	transition: top 500ms ease-in;
+	display: inline-block;
+	margin: 0;
 
+	li{
+		display: inline-block;
+	}
+
+	.nav-btn{
+		font-size: 14px;
+		color: var(--colorNav);
+	}
+}
+.menu.hidden{
+	/*display: none !important;*/
+	top: 100px;
+}
 
 /*======================================================================
   Components - Button
@@ -209,6 +229,7 @@ button{
 		background-color: color(black alpha(.6));
 	}
 }
+
 /*======================================================================
   Components - Vector icons
   ======================================================================*/
