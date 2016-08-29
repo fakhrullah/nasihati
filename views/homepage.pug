@@ -31,6 +31,8 @@ html
       button#menu-toggle
         svg.siv.siv-bars(width=32 height=32)
           use(xlink:href="/icons/bars.svg#bars")
-      //- ul.menu
-      //-   li ABOUT
-      //-   li NASIHAT BOT
+      ul#menu.menu.hidden
+        li #[button#about-toggle.nav-btn ABOUT]
+        li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
+
+    script(src="/js/main.js")

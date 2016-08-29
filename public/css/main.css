@@ -591,7 +591,25 @@ body{
 /*======================================================================
   Navigation
   ======================================================================*/
-
+.menu{
+	position: relative;
+	top: 0;
+	-webkit-transition: top 500ms ease-in;
+	transition: top 500ms ease-in;
+	display: inline-block;
+	margin: 0;
+}
+.menu li{
+    display: inline-block;
+}
+.menu .nav-btn{
+    font-size: 14px;
+    color: rgba(255,255,255,.70);
+}
+.menu.hidden{
+	/*display: none !important;*/
+	top: 100px;
+}
 
 /*======================================================================
   Components - Button
@@ -619,6 +637,7 @@ button:hover, button:focus {
 button:active {
     background-color: rgba(0, 0, 0, 0.6);
 }
+
 /*======================================================================
   Components - Vector icons
   ======================================================================*/
