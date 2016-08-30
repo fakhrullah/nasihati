@@ -611,13 +611,24 @@ body{
 	top: 100px;
 }
 
-/* TODO use svg */
-.next{
+/* TODO use svg like others button*/
+.next, .prev{
 	position: fixed;
 	top: 45%;
-	right: 0;
 	font-size: 72px;
-	line-height: 68px;
+	line-height: 68px
+}
+@media(max-width: 600px){
+
+    .next, .prev {
+        display: none;
+    }
+	}
+.next{
+	right: 0;
+}
+.prev{
+	left:0;
 }
 
 /*======================================================================

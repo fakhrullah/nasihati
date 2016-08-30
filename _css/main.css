@@ -1,6 +1,7 @@
 /*! Copyright Fakhrullah Padzil */
 
 @custom-media --desktop (min-width: 600px);
+@custom-media --mobile (max-width: 600px);
 
 :root{
 	--fontSans: "Open Sans", Helvetica, "Ubuntu", sans-serif;
@@ -204,13 +205,22 @@ body{
 	top: 100px;
 }
 
-/* TODO use svg */
-.next{
+/* TODO use svg like others button*/
+.next, .prev{
 	position: fixed;
 	top: 45%;
-	right: 0;
 	font-size: 72px;
 	line-height: 68px;
+
+	@media(--mobile){
+		display: none;
+	}
+}
+.next{
+	right: 0;
+}
+.prev{
+	left:0;
 }
 
 /*======================================================================

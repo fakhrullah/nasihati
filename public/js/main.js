@@ -14,7 +14,7 @@
   var modalNavClose = document.getElementsByClassName('modal-nav-close');
 
   var nextButton = document.getElementById('next');
-
+  var prevButton = document.getElementById('prev');
 
   menuToggle.addEventListener('click', function(){
     // console.log('#menu-toggle clicked');
@@ -40,6 +40,10 @@
 
   nextButton.addEventListener('click', function(){
     console.log('next button clicked');
+  })
+
+  prevButton.addEventListener('click', function(){
+    console.log('prev button clicked');
   })
 
   /**
