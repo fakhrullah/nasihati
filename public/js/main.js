@@ -13,6 +13,9 @@
 
   var modalNavClose = document.getElementsByClassName('modal-nav-close');
 
+  var nextButton = document.getElementById('next');
+
+
   menuToggle.addEventListener('click', function(){
     // console.log('#menu-toggle clicked');
     
@@ -33,6 +36,10 @@
     el.addEventListener('click', function(){
       el.parentNode.className += ' hidden';
     })
+  })
+
+  nextButton.addEventListener('click', function(){
+    console.log('next button clicked');
   })
 
   /**
