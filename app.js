@@ -77,6 +77,7 @@ app.get('/',function(req,res) {
     // render page
     res.render('homepage', {
       title: "Nasihat",
+      quoteId: todayId,
       quote: nasihat.text,
       source: nasihat.source
     });
@@ -140,6 +141,24 @@ app.delete(ApiV1 + '/nasihat/:id', function (req, res) {
 
     if(err) throw err;
     res.json(data);
+
+  })
+})
+
+/**
+ * get next nasihat
+ */
+app.get('/nasihat/next/:id' , function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get next nasihat for id ' + id)
+
+  nasihatCol.getNextNasihatForId(id, function (err, data) {
+
+    if (err) throw err
+
+    console.log(data)
+    res.json(data)
 
   })
 })

@@ -20,8 +20,9 @@ html
 
       h1.title= title
 
-      p.quote.nasihat= quote
-      p.source= source
+      - var todayId = quoteId
+      p.quote.nasihat#nasihatQuote(data-quoteid=todayId) #{quote}
+      p.source#nasihatQuoteSource= source
 
       button#more.more
        svg.siv.siv-ellipsis(width=32 height=32)

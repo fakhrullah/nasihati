@@ -1,7 +1,10 @@
 (function(){
 
-  var menuToggle = document.getElementById('menu-toggle');
-  var menu = document.getElementById('menu');
+  var menuToggle = document.getElementById('menu-toggle')
+  var menu = document.getElementById('menu')
+
+  var nasihatQuote = document.getElementById('nasihatQuote')
+  var nasihatQuoteSource = document.getElementById('nasihatQuoteSource');
 
   // TODO use only ONE modal for all modal-type-page
   
@@ -38,8 +41,34 @@
     })
   })
 
-  nextButton.addEventListener('click', function(){
-    console.log('next button clicked');
+  nextButton.addEventListener('click', function () {
+    // console.log('next button clicked');
+
+    var currentId = nasihatQuote.dataset.quoteid
+    console.log('get nasihat next to ' + currentId + ' id')
+    // get next nasihat word
+    getJSON('/nasihat/next/' + currentId )
+    .then(function(data){
+      var dataId = data.id
+      var nextQuote = data.text
+      var nextQuoteSource = data.source
+
+      // hide current nasihat quote and it source
+      nasihatQuote.style.visibility = 'hidden'
+      nasihatQuoteSource.style.visibility = 'hidden'
+
+      setTimeout(function setNewNasihatQuote () {
+        // replace current nasihat quote and source with new one
+        nasihatQuote.innerHTML = nextQuote
+        nasihatQuoteSource.innerHTML = nextQuoteSource 
+        // show back nasihat quote and source that contains new one
+        nasihatQuote.style.visibility = 'visible'
+        nasihatQuoteSource.style.visibility = 'visible'
+
+        nasihatQuote.dataset.quoteid = dataId
+      }, 1000)
+    })
+    
   })
 
   prevButton.addEventListener('click', function(){
@@ -66,6 +95,24 @@
       el.className = classes.join(' ');
     }
   }
+
+  function getJSON (url) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest()
+      xhr.open('get', url, true)
+      xhr.responseType = 'json'
+      xhr.onload = function() {
+        var status = xhr.status
+        if (status == 200) {
+          resolve(xhr.response)
+        } else {
+          reject(status)
+        }
+      }
+      xhr.send()
+    })
+  }
+
 
 })()
 

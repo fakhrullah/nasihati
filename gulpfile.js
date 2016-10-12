@@ -48,7 +48,8 @@ gulp.task('build-css', function(){
 gulp.task('watch', function() {
 
 	browserSync.init({
-	    proxy: "localhost:3000"
+	    proxy: "localhost:3000",
+	    port: 3002
 	});
 
 

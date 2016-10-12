@@ -102,6 +102,32 @@ module.exports = {
 
 			});
 		});
+	},
+
+	/**
+	 * get next nasihat for given id
+	 */
+	getNextNasihatForId: function (id, callback){
+
+		MongoClient.connect(url, function (err, db) {
+
+			var col = db.collection('nasihats')
+			
+			console.log("find nasihat next to " + id)
+
+			col.find({ id: {$gt: id} }).limit(1).toArray(function (err, data){
+
+				if (err) {
+					db.close()
+					return callback(err)
+				}
+
+				callback(null, data[0])
+				db.close()
+			})
+		})
+
 	}
+	
 
 }
