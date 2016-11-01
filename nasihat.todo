@@ -13,7 +13,7 @@ Homepage:
   ✔ Menu button to show some navigation to other info (About, Nasihati Telegram Bot) - do not use page, just use modal prompt on same hompage - SEO? dont care! @done (16-11-02 03:57)
   ✔ Used svg and png fallback on icon - remove font-awesome @high @done (16-11-02 03:57)
   ✔ Next navigation to show next nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but do not care @done (16-11-02 03:57)
-  ☐ Prev navigation to show previous nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but do not care
+  ✔ Prev navigation to show previous nasihat in database - show on same homepage, get data by ajax - maybe bad for SEO, but do not care @done (16-11-02 07:21)
 
   About modal: 
     ☐ write why I create this page 
