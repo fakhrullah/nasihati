@@ -118,5 +118,31 @@ module.exports = {
         db.close()
       })
     })
+  },
+
+  /**
+   * get previous nasihat for given id
+   */
+  getPrevNasihatForId: function (id, callback) {
+    MongoClient.connect(url, function (err, db) {
+      if (err) {
+        console.log('ERROR: ' + err.message)
+        return callback(err)
+      }
+
+      var col = db.collection('nasihats')
+
+      console.log('find nasihat next to ' + id)
+
+      col.find({ id: {$lt: id} }).sort({id: -1}).limit(1).toArray(function (err, data) {
+        if (err) {
+          db.close()
+          return callback(err)
+        }
+
+        callback(null, data[0])
+        db.close()
+      })
+    })
   }
 }

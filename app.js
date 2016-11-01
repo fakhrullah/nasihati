@@ -132,7 +132,7 @@ app.delete(ApiV1 + '/nasihat/:id', function (req, res) {
 })
 
 /**
- * get next nasihat
+ * Get next nasihat
  */
 app.get('/nasihat/next/:id', function (req, res) {
   var id = parseInt(req.params['id'])
@@ -141,6 +141,26 @@ app.get('/nasihat/next/:id', function (req, res) {
 
   nasihatCol.getNextNasihatForId(id, function (err, data) {
     if (err) throw err
+
+    // TODO: fix if last element AND no more next
+
+    console.log(data)
+    res.json(data)
+  })
+})
+
+/**
+ * Get prev nasihat
+ */
+app.get('/nasihat/prev/:id', function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get prev nasihat for id ' + id)
+
+  nasihatCol.getPrevNasihatForId(id, function (err, data) {
+    if (err) throw err
+
+    // if last element AND no more next
 
     console.log(data)
     res.json(data)
