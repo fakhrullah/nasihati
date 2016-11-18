@@ -44,7 +44,7 @@ gulp.task('build-css', function () {
 //   .pipe(gulp.dest('public/js'))
 // })
 
-// // Rerun the task when a file changes
+// Rerun the task when a file changes
 gulp.task('watch', function () {
   browserSync.init({
     proxy: 'localhost:3000',

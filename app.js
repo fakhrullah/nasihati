@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser')
 var moment = require('moment')
 var ApiV1 = '/api/v1'
 var nasihatCol = require('./nasihat_col.js')
+var config = require('./config.js')
 
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
@@ -167,6 +168,6 @@ app.get('/nasihat/prev/:id', function (req, res) {
   })
 })
 
-app.listen(3000, function () {
+app.listen(config.port, function () {
   console.log('Example app listening on port 3000!')
 })
