@@ -86,7 +86,7 @@ app.get('/', function (req, res) {
 
 /**
  * Block all api until authentication/authorization added
- * TODO add auth then delete this preventation
+ * TODO add auth guna passportjs then delete this preventation
  */
 app.use(ApiV1, function (req, res, next) {
   console.log('Block temporary')
