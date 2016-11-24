@@ -8,11 +8,13 @@ Sebuah web yang memaparkan petikan terjemahan quran dan hadis.
 
 _Gambar dihasilkan menggunakan web [Am I Responsive](http://ami.responsivedesign.is/)_
 
+[demo](https://nasihat.fajarhac.com)
+
 Asal [nasihat web](https://github.com/fakhrullah/nasihat) yang ditulis balik dengan nodejs dan mongodb. Sebabnya, sistem pengaturcaraan modular dalam node js ni dapat mengurangkan kod, lalu memudahkan pengurusan.
 
 Untuk repo sebelum ini pun saya dah beritahu, web sekecil nasihat, sepatutnya dibina menggunakan [Lumen](https://lumen.laravel.com/) bukan [Laravel](https://laravel.com/). 
 
-Jadi tulis semula nasihat guna node js adalah satu tindakan terbaik dan bijak.
+Jadi tulis semula nasihat guna node.js, Express js dan MongoDB adalah satu tindakan terbaik dan bijak.
 
 ## Sumbangan
 
@@ -24,5 +26,5 @@ Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya ak
 
 ## License
 
-Copyright [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
+Copyright 2016 [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
 
