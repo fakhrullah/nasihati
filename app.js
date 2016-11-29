@@ -179,6 +179,29 @@ app.get('/nasihat/prev/:id', function (req, res) {
   })
 })
 
+// development error handler
+// will print stacktrace
+// should use config file
+if (config.env === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.json({
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: {}
+  });
+});
+
 app.listen(config.port, function () {
   console.log('Example app listening on port 3000!')
 })
