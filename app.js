@@ -23,6 +23,7 @@ app.use(express.static('public'))
 /*
  * set view engine
  */
+app.set('views', './views/')
 app.set('view engine', 'pug')
 
 /**
