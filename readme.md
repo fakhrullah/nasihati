@@ -24,9 +24,9 @@ Selain itu, anda boleh tolong menyelesaikan isu-isu (_issue_) sekiranya ada.
 
 Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya akan labelkan isu-isu dengan label `senang`. Jadi kalau anda masih takut-takut nak menyumbang, tolong selesaikan isu label `senang` je dulu.
 
-## Cara guna
+## Cara pasang (_install_)
 
-> Anda perlu install node.js dan MongoDB terlebih dahulu.
+> Pastikan anda dah install [node.js](https://nodejs.org/en/download/) dan [mongoDB](https://docs.mongodb.com/manual/installation/#tutorials). Semak dah install ke belum, `node --version` dan `mongo --version`.
 
 1. Muatturun projek ni.
 
