@@ -24,6 +24,43 @@ Selain itu, anda boleh tolong menyelesaikan isu-isu (_issue_) sekiranya ada.
 
 Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya akan labelkan isu-isu dengan label `senang`. Jadi kalau anda masih takut-takut nak menyumbang, tolong selesaikan isu label `senang` je dulu.
 
+## Cara pasang (_install_)
+
+> Pastikan anda dah install [node.js](https://nodejs.org/en/download/) dan [mongoDB](https://docs.mongodb.com/manual/installation/#tutorials). Semak dah install ke belum, `node --version` dan `mongo --version`.
+
+1. Muatturun projek ni.
+
+	```
+	git clone https://github.com/fakhrullah/nasihati
+	```
+
+2. Pasang semua dependencies projek.
+
+	```
+	cd nasihati/
+	npm install
+	```
+
+3. Sediakan tetapan fail `config.js` untuk _run_ di pc anda. Tetapan ini penting untuk mengelakkan web ni run pada port yang sama.
+
+	```
+	cp config.sample.js config.js
+	```
+
+	Kemudian sunting `config.js` ikut kesesuaian sendiri.
+
+4. Sediakan data asas untuk MongoDB. Fail `nasihat.json` ada dalam root projek direktori. Kalau tak de, `git pull` yang terbaru.
+
+	```
+	mongoimport --db nasihat --collection nasihats --type json --file nasihat.json
+	```
+
+5. Mulakan web.
+
+	```
+	node app.js
+	```
+
 ## License
 
 Copyright 2016 [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
