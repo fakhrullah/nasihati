@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
+var path = require('path')
 // var _ = require('lodash')
 var moment = require('moment')
 var ApiV1 = '/api/v1'
@@ -18,12 +19,12 @@ var config = require('./config.js')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, '/public')))
 
 /*
  * set view engine
  */
-app.set('views', __dirname + '/views')
+app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'pug')
 
 /**
@@ -183,25 +184,25 @@ app.get('/nasihat/prev/:id', function (req, res) {
 // will print stacktrace
 // should use config file
 if (config.env === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500)
     res.json({
       message: err.message,
       error: err
-    });
-  });
+    })
+  })
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500)
   res.json({
     message: err.message,
     error: {}
-  });
-});
+  })
+})
 
 app.listen(config.port, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port ' + config.port + '!')
 })
