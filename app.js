@@ -4,7 +4,6 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var path = require('path')
 // var _ = require('lodash')
-var nasihatCol = require('./nasihat_col.js')
 var config = require('./config.js')
 
 // TODO handle error on /api/v1 route
@@ -28,42 +27,7 @@ app.set('view engine', 'pug')
 // Routes
 app.use('/', require('./routes/index'))
 app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
-
-/**
- * Get next nasihat
- */
-app.get('/nasihat/next/:id', function (req, res) {
-  var id = parseInt(req.params['id'])
-
-  console.log('get next nasihat for id ' + id)
-
-  nasihatCol.getNextNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // TODO: fix if last element AND no more next
-
-    console.log(data)
-    res.json(data)
-  })
-})
-
-/**
- * Get prev nasihat
- */
-app.get('/nasihat/prev/:id', function (req, res) {
-  var id = parseInt(req.params['id'])
-
-  console.log('get prev nasihat for id ' + id)
-
-  nasihatCol.getPrevNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // if last element AND no more next
-
-    console.log(data)
-    res.json(data)
-  })
-})
+app.use('/nasihat', require('./routes/nasihat.js'))
 
 // development error handler
 // will print stacktrace
