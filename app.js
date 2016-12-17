@@ -87,13 +87,16 @@ app.get('/', function (req, res) {
 })
 
 /**
- * Block all api until authentication/authorization added
+ * Block all api until authentication/authorization added only on production
  * TODO add auth guna passportjs then delete this preventation
  */
 app.use(ApiV1, function (req, res, next) {
-  console.log('Block temporary')
-  res.status(403)
-  res.send('403 Forbidden')
+  if (config.env === 'production') {
+    console.log('Block temporary for production only. If you are on development, change config.js -> env: "development".')
+    res.status(403)
+    res.send('403 Forbidden')
+  }
+  next()
 })
 
 /*
