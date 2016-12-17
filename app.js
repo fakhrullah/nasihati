@@ -4,8 +4,6 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var path = require('path')
 // var _ = require('lodash')
-var moment = require('moment')
-var ApiV1 = '/api/v1'
 var nasihatCol = require('./nasihat_col.js')
 var config = require('./config.js')
 
@@ -29,67 +27,7 @@ app.set('view engine', 'pug')
 
 // Routes
 app.use('/', require('./routes/index'))
-
-/**
- * Block all api until authentication/authorization added only on production
- * TODO add auth guna passportjs then delete this preventation
- */
-app.use(ApiV1, function (req, res, next) {
-  if (config.env === 'production') {
-    console.log('Block temporary for production only. If you are on development, change config.js -> env: "development".')
-    res.status(403)
-    res.send('403 Forbidden')
-  }
-  next()
-})
-
-/*
- * API routes
- */
-app.get(ApiV1 + '/nasihat/:id', function (req, res) {
-  var id = req.params['id']
-
-  console.log('show nasihat at id ' + id)
-
-  nasihatCol.getNasihatById(parseInt(id), function (err, nasihat) {
-    if (err) console.log('miaw')
-    res.json(nasihat)
-  })
-})
-
-app.put(ApiV1 + '/nasihat/:id', function (req, res) {
-  var id = req.params['id']
-
-  console.log('update nasihat at id ' + id)
-
-  nasihatCol.updateNasihatById(parseInt(id), req.body, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
-})
-
-app.post(ApiV1 + '/nasihat/', function (req, res) {
-  console.log('create new nasihat')
-
-  nasihatCol.createNasihat(req.body, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
-})
-
-app.delete(ApiV1 + '/nasihat/:id', function (req, res) {
-  var id = req.params['id']
-
-  console.log('delete nasihat at id ' + id)
-
-  nasihatCol.deleteNasihat(id, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
-})
+app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
 
 /**
  * Get next nasihat
