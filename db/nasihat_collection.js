@@ -3,6 +3,7 @@ var ObjectId = require('mongodb').ObjectId
 
 // Connection URL
 var url = 'mongodb://localhost:27017/nasihat'
+var collectionName = 'nasihats'
 
 // Read data
 module.exports = {
@@ -10,20 +11,20 @@ module.exports = {
   /**
    * Get a nasihat by id
    */
-  getNasihatById: function (id, callback) {
-    MongoClient.connect(url, function (err, db) {
-      // console.log("Connected succesfully to server")
+  getNasihatById (id) {
+    return new Promise(function (resolve, reject) {
+      connectToDB(url)
+        .then((db) => {
+          db.collection(collectionName)
+            .find({id: id})
+            .limit(1)
+            .toArray(function (err, quote) {
+              if (err) reject(err)
 
-      if (err) throw err
-
-      var col = db.collection('nasihats')
-
-      // TODO use findOne({id: id})
-      col.find({id: id}).limit(1).toArray(function (err, data) {
-        callback(err, data[0])
-
-        db.close()
-      })
+              resolve(quote[0])
+              db.close()
+            })
+        })
     })
   },
 
@@ -145,4 +146,14 @@ module.exports = {
       })
     })
   }
+}
+
+function connectToDB (url) {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect(url, function (err, db) {
+      if (err) reject(err)
+
+      resolve(db)
+    })
+  })
 }

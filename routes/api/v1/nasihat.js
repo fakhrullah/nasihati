@@ -5,6 +5,7 @@
 var express = require('express')
 var router = express.Router()
 var nasihatCol = require('../../../nasihat_col.js')
+var nasihatCollection = require('../../../db/nasihat_collection.js')
 var config = require('../../../config.js')
 
 // -------- middlewares -----
@@ -24,14 +25,12 @@ router.use('/', function (req, res, next) {
 
 // ----- routes ---------
 router.get('/:id', function (req, res) {
-  var id = req.params['id']
+  var id = parseInt(req.params['id'])
 
   console.log('show nasihat at id ' + id)
 
-  nasihatCol.getNasihatById(parseInt(id), function (err, nasihat) {
-    if (err) console.log('miaw')
-    res.json(nasihat)
-  })
+  nasihatCollection.getNasihatById(id)
+    .then(nasihat => res.json(nasihat))
 })
 
 router.put('/:id', function (req, res) {
