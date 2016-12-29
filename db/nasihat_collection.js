@@ -31,22 +31,21 @@ module.exports = {
   /**
    * Update nasihat by id
    */
-  updateNasihatById: function (id, updateData, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) callback(err)
+  updateNasihatById (id, updateData) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .updateOne({id: id},
+              { $set: updateData },
+              (err, result) => {
+                // TODO pass a full result not result.result
+                if (err) reject(err)
 
-      var col = db.collection('nasihats')
-
-      col.updateOne(
-        {id: id},
-        { $set: updateData },
-        function (err, result) {
-          // TODO pass a full result not result.result
-          callback(err, result.result)
-
-          db.close()
-        }
-      )
+                resolve(result.result)
+                db.close()
+              })
+        })
     })
   },
 

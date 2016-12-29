@@ -24,6 +24,7 @@ router.use('/', function (req, res, next) {
 })
 
 // ----- routes ---------
+
 router.get('/:id', function (req, res) {
   var id = parseInt(req.params['id'])
 
@@ -34,15 +35,15 @@ router.get('/:id', function (req, res) {
 })
 
 router.put('/:id', function (req, res) {
-  var id = req.params['id']
+  var id = parseInt(req.params['id'])
 
   console.log('update nasihat at id ' + id)
 
-  nasihatCol.updateNasihatById(parseInt(id), req.body, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
+  nasihatCollection.updateNasihatById(id, req.body)
+    .then(data => {
+      console.log(data)
+      res.redirect('/api/v1/nasihat/' + id).end()
+    })
 })
 
 router.post('/', function (req, res) {
