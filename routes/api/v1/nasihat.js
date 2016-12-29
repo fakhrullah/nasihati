@@ -42,18 +42,21 @@ router.put('/:id', function (req, res) {
   nasihatCollection.updateNasihatById(id, req.body)
     .then(data => {
       console.log(data)
-      res.redirect('/api/v1/nasihat/' + id).end()
+      res.redirect('/api/v1/nasihat/' + id)
     })
 })
 
 router.post('/', function (req, res) {
   console.log('create new nasihat')
 
-  nasihatCol.createNasihat(req.body, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
+  // console.log(req.body)
+  nasihatCollection.createNasihat(req.body)
+    .then(result => {
+      console.log(result.result)
+      res.redirect('/')
+      // res.redirect('/api/v1/nasihat/')
+    })
+    .catch(err => console.log(err))
 })
 
 router.delete('/:id', function (req, res) {

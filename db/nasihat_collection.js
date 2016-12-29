@@ -12,7 +12,7 @@ module.exports = {
    * Get a nasihat by id
    */
   getNasihatById (id) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       connectToDB(url)
         .then((db) => {
           db.collection(collectionName)
@@ -54,16 +54,18 @@ module.exports = {
    * TODO sanitize insertData @important
    * TODO automatic add increment id field to insertData @important @urgent
    */
-  createNasihat: function (insertData, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) return callback(err)
+  createNasihat (insertData) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .insert(insertData,
+              (err, result) => {
+                if (err) reject(err)
 
-      var col = db.collection('nasihats')
-
-      col.insert(insertData, function (err, result) {
-        callback(err, result)
-        db.close()
-      })
+                resolve(result)
+              })
+        })
     })
   },
 
