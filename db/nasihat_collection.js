@@ -25,6 +25,7 @@ module.exports = {
               db.close()
             })
         })
+        .catch(err => console.log(err))
     })
   },
 
@@ -46,6 +47,7 @@ module.exports = {
                 db.close()
               })
         })
+        .catch(err => console.log(err))
     })
   },
 
@@ -66,6 +68,7 @@ module.exports = {
                 resolve(result)
               })
         })
+        .catch(err => console.log(err))
     })
   },
 
@@ -73,26 +76,19 @@ module.exports = {
    * Delete a nasihat
    * @params id if not Number use mongodb _id: ObjectId
    */
-  deleteNasihat: function (id, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) return callback(err)
+  deleteNasihat (id, callback) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .remove({id: id},
+              (err, result) => {
+                if (err) reject(err)
 
-      var col = db.collection('nasihats')
-
-      // Determined type of id in used. Mongo default _id or increment id
-      var lookingId
-      if (!ObjectId.isValid(id)) {
-        // console.log('~~~~~~~~~~~~~~ use id : the increment on');
-        lookingId = {id: parseInt(id)}
-      } else {
-        // console.log('~~~~~~~~~~~~~~ use ObjectId')
-        lookingId = {_id: ObjectId(id)}
-      }
-
-      col.remove(lookingId, function (err, result) {
-        callback(err, result)
-        db.close()
-      })
+                resolve(result)
+                db.close()
+              })
+        })
     })
   },
 

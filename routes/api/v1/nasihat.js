@@ -60,15 +60,15 @@ router.post('/', function (req, res) {
 })
 
 router.delete('/:id', function (req, res) {
-  var id = req.params['id']
+  var id = parseInt(req.params['id'])
 
   console.log('delete nasihat at id ' + id)
 
-  nasihatCol.deleteNasihat(id, function (err, data) {
-    if (err) throw err
-
-    res.json(data)
-  })
+  nasihatCollection.deleteNasihat(id)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => console.log(err))
 })
 
 module.exports = router
