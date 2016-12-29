@@ -4,7 +4,6 @@
 
 var express = require('express')
 var router = express.Router()
-var nasihatCol = require('../../../nasihat_col.js')
 var nasihatCollection = require('../../../db/nasihat_collection.js')
 var config = require('../../../config.js')
 
@@ -65,6 +64,21 @@ router.delete('/:id', function (req, res) {
   console.log('delete nasihat at id ' + id)
 
   nasihatCollection.deleteNasihat(id)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => console.log(err))
+})
+
+/**
+ * Get next
+ */
+router.get('/:id/next', function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get next nasihat for nasihat at id ' + id)
+
+  nasihatCollection.getNextNasihatForId(id)
     .then(result => {
       res.json(result)
     })

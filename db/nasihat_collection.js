@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient
-var ObjectId = require('mongodb').ObjectId
+// var ObjectId = require('mongodb').ObjectId
 
 // Connection URL
 var url = 'mongodb://localhost:27017/nasihat'
@@ -81,13 +81,12 @@ module.exports = {
       connectToDB(url)
         .then(db => {
           db.collection(collectionName)
-            .remove({id: id},
-              (err, result) => {
-                if (err) reject(err)
+            .remove({id: id}, (err, result) => {
+              if (err) reject(err)
 
-                resolve(result)
-                db.close()
-              })
+              resolve(result)
+              db.close()
+            })
         })
     })
   },
@@ -95,32 +94,28 @@ module.exports = {
   /**
    * get next nasihat for given id
    */
-  getNextNasihatForId: function (id, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) {
-        console.log('ERROR: ' + err.message)
-        return callback(err)
-      }
-
-      var col = db.collection('nasihats')
-
-      console.log('find nasihat next to ' + id)
-
-      col.find({ id: {$gt: id} }).limit(1).toArray(function (err, data) {
-        if (err) {
-          db.close()
-          return callback(err)
-        }
-
-        callback(null, data[0])
-        db.close()
-      })
+  getNextNasihatForId (id) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .find({id: {$gt: id}})
+            .limit(1)
+            .toArray((err, result) => {
+              if (err) reject(err)
+              console.log(id)
+              resolve(result[0])
+              db.close()
+            })
+        })
+        .catch(err => console.log(err))
     })
   },
 
   /**
    * get previous nasihat for given id
    */
+  // TODO @urgent @not-important
   getPrevNasihatForId: function (id, callback) {
     MongoClient.connect(url, function (err, db) {
       if (err) {
