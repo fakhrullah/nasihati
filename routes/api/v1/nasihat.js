@@ -85,4 +85,19 @@ router.get('/:id/next', function (req, res) {
     .catch(err => console.log(err))
 })
 
+/**
+ * Get prev
+ */
+router.get('/:id/prev', function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get previous nasihat for nasihat at id ' + id)
+
+  nasihatCollection.getPrevNasihatForId(id)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router

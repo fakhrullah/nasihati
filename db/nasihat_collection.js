@@ -103,7 +103,7 @@ module.exports = {
             .limit(1)
             .toArray((err, result) => {
               if (err) reject(err)
-              console.log(id)
+
               resolve(result[0])
               db.close()
             })
@@ -115,27 +115,21 @@ module.exports = {
   /**
    * get previous nasihat for given id
    */
-  // TODO @urgent @not-important
-  getPrevNasihatForId: function (id, callback) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) {
-        console.log('ERROR: ' + err.message)
-        return callback(err)
-      }
+  getPrevNasihatForId (id) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .find({id: {$lt: id}})
+            .sort({id: -1})
+            .limit(1)
+            .toArray((err, result) => {
+              if (err) reject(err)
 
-      var col = db.collection('nasihats')
-
-      console.log('find nasihat next to ' + id)
-
-      col.find({ id: {$lt: id} }).sort({id: -1}).limit(1).toArray(function (err, data) {
-        if (err) {
-          db.close()
-          return callback(err)
-        }
-
-        callback(null, data[0])
-        db.close()
-      })
+              resolve(result)
+              db.close()
+            })
+        })
     })
   }
 }
