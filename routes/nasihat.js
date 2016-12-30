@@ -13,21 +13,39 @@ var request = require('request')
  * GET /nasihat/:id
  */
 router.get('/:id', (req, res, next) => {
-  var apiUrl = 'http://localhost:3000' + '/api/v1/nasihat/' + req.params.id
+  var id = parseInt(req.params.id)
+  var apiUrl = 'http://localhost:3000' + '/api/v1/nasihat/' + id
+  var firstId = 1
+  var lastId = 183
 
   request.get(apiUrl, (err, response, body) => {
     if (err) {
       console.log(err)
       next(err)
     }
-    res.json(JSON.parse(body))
+
+    var nasihat = JSON.parse(body)
+
+    // TODO : think better way. May be API should give next and prev link
+    var isPrevAvailable = true
+    if (id === firstId) isPrevAvailable = false
+
+    var isNextAvailable = true
+    if (id === lastId) isNextAvailable = false
+
+    var nextLink = isNextAvailable ? '/nasihat/' + (id + 1) : undefined
+    var prevLink = isPrevAvailable ? '/nasihat/' + (id - 1) : undefined
+
+    // render page
+    res.render('nasihat/index', {
+      title: 'Nasihat',
+      quoteId: id,
+      quote: nasihat.text,
+      source: nasihat.source,
+      nextLink: nextLink,
+      prevLink: prevLink
+    })
   })
-  // nasihatCollection.getNasihatById(id)
-  //   .then(result => {
-  //     // res.render('nasihat/index')
-  //     res.json(result)
-  //   })
-  //   .catch(err => console.log(err))
 })
 router.get('/:id/:slug', (req, res) => res.redirect('/nasihat/' + parseInt(req.params.id)))
 

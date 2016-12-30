@@ -1,0 +1,47 @@
+doctype
+html
+  head
+    link(rel="stylesheet" href="/css/main.css")
+    meta(name="viewport" content="width=device-width")
+    title= title
+
+  body
+
+    section.main-content
+
+      header.header
+        button.random
+          svg.siv.siv-random(width=24 height=24)
+            use(xlink:href="/icons/random.svg#random")
+
+        button.share
+          svg.siv.siv-share(width=24 height=24)
+            use(xlink:href="/icons/share.svg#share")
+
+      h1.title= title
+
+      p.quote.nasihat#nasihatQuote #{quote}
+      p.source#nasihatQuoteSource= source
+
+      button#more.more
+       svg.siv.siv-ellipsis(width=32 height=32)
+        use(xlink:href="/icons/ellipsis.svg#ellipsis")
+
+    nav.nav
+      button#menu-toggle
+        svg.siv.siv-bars(width=32 height=32)
+          use(xlink:href="/icons/bars.svg#bars")
+      ul#menu.menu.hidden
+        li #[button#about-toggle.nav-btn ABOUT]
+        li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
+
+    if (nextLink !== undefined)
+      a.next(href=nextLink) } <!-- &gt;-->
+
+    if (prevLink !== undefined)
+      a.prev(href=prevLink) { <!-- &lt; -->
+
+    include ../modals/about
+    include ../modals/nasihatbot
+
+    script(src="/js/main.js")
