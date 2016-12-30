@@ -8,13 +8,17 @@ var router = express.Router()
 var nasihatCol = require('../nasihat_col.js')
 // var nasihatCollection = require('../db/nasihat_collection.js')
 var request = require('request')
+var config = require('../config.js')
 
 /**
  * GET /nasihat/:id
  */
 router.get('/:id', (req, res, next) => {
+  console.log(JSON.stringify(req.header))
+  var port = config.env === 'development' ? ':' + config.port : ''
+  var hostnameAndPort = req.hostname + port
   var id = parseInt(req.params.id)
-  var apiUrl = 'http://localhost:3000' + '/api/v1/nasihat/' + id
+  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
   var firstId = 1
   var lastId = 183
 
