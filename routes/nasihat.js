@@ -11,6 +11,42 @@ var request = require('request')
 var config = require('../config.js')
 
 /**
+ * Get next nasihat
+ */
+router.get('/next/:id', function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get next nasihat for id ' + id)
+
+  nasihatCol.getNextNasihatForId(id, function (err, data) {
+    if (err) throw err
+
+    // TODO: fix if last element AND no more next
+
+    console.log(data)
+    res.json(data)
+  })
+})
+
+/**
+ * Get prev nasihat
+ */
+router.get('/prev/:id', function (req, res) {
+  var id = parseInt(req.params['id'])
+
+  console.log('get prev nasihat for id ' + id)
+
+  nasihatCol.getPrevNasihatForId(id, function (err, data) {
+    if (err) throw err
+
+    // if last element AND no more next
+
+    console.log(data)
+    res.json(data)
+  })
+})
+
+/**
  * GET /nasihat/:id
  */
 router.get('/:id', (req, res, next) => {
@@ -52,41 +88,5 @@ router.get('/:id', (req, res, next) => {
   })
 })
 router.get('/:id/:slug', (req, res) => res.redirect('/nasihat/' + parseInt(req.params.id)))
-
-/**
- * Get next nasihat
- */
-router.get('/next/:id', function (req, res) {
-  var id = parseInt(req.params['id'])
-
-  console.log('get next nasihat for id ' + id)
-
-  nasihatCol.getNextNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // TODO: fix if last element AND no more next
-
-    console.log(data)
-    res.json(data)
-  })
-})
-
-/**
- * Get prev nasihat
- */
-router.get('/prev/:id', function (req, res) {
-  var id = parseInt(req.params['id'])
-
-  console.log('get prev nasihat for id ' + id)
-
-  nasihatCol.getPrevNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // if last element AND no more next
-
-    console.log(data)
-    res.json(data)
-  })
-})
 
 module.exports = router
