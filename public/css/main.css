@@ -423,7 +423,7 @@ body{
 	        align-items: center;
 	font-family: "Open Sans", Helvetica, "Ubuntu", sans-serif;
 	font-size: 16px;
-	color: rgba(255,255,255,.96);
+	color: rgba(255, 255, 255, .96);
 	line-height: 1.8em;
 	box-sizing: border-box;
 	width: 100%;
@@ -441,7 +441,7 @@ body{
 
     body {
         font-size: 18px;
-        color: rgba(255,255,255,.96);
+        color: rgba(255, 255, 255, .96);
     }
 	}
 
@@ -604,7 +604,7 @@ body{
 }
 .menu .nav-btn{
     font-size: 14px;
-    color: rgba(255,255,255,.70);
+    color: rgba(255, 255, 255, .70);
 }
 .menu.hidden{
 	/*display: none !important;*/
@@ -682,7 +682,7 @@ button{
 	text-shadow: 0 1px 2px #666;
 	background: transparent;		
 	border: none;
-	color: rgba(255,255,255,.96);
+	color: rgba(255, 255, 255, .96);
 	border-radius: 2px
 }
 @media(min-width: 600px){
@@ -703,7 +703,7 @@ button:active {
   Components - Vector icons
   ======================================================================*/
 .siv{
-	fill: rgba(255,255,255,.96);
+	fill: rgba(255, 255, 255, .96);
 	width: 24px;
 	height: 24px
 }
