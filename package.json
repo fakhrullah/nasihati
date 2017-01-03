@@ -19,8 +19,14 @@
     "gulp-cssnano": "^2.1.2",
     "gulp-postcss": "^6.2.0",
     "gulp-rename": "^1.2.2",
+    "method-override": "^2.3.7",
+    "moment": "^2.17.1",
+    "mongodb": "^2.2.16",
     "postcss-cssnext": "^2.9.0",
-    "postcss-nested": "^1.0.0"
+    "postcss-nested": "^1.0.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.79.0",
+    "svg-captcha": "^1.2.1"
   },
   "scripts": {
     "start": "node app.js",

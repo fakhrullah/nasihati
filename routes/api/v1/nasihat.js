@@ -33,6 +33,7 @@ router.get('/:id', function (req, res) {
     .then(nasihat => res.json(nasihat))
 })
 
+// TODO secure editing by save history and let admin approve before accepting user submitted edit
 router.put('/:id', function (req, res) {
   var id = parseInt(req.params['id'])
 

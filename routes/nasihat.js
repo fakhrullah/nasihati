@@ -8,6 +8,7 @@ var router = express.Router()
 var nasihatCol = require('../nasihat_col.js')
 // var nasihatCollection = require('../db/nasihat_collection.js')
 var request = require('request')
+var svgCaptcha = require('svg-captcha')
 var config = require('../config.js')
 
 /**
@@ -63,13 +64,20 @@ router.get('/:id/edit', (req, res, next) => {
       next(err)
     }
 
+    var flashError = req.session.flash || undefined
+    console.log(flashError)
+    req.session.flash = undefined
+
     var nasihat = JSON.parse(body)
+    var chars = svgCaptcha.create()
+    req.session.captcha = chars.text
 
     res.render('nasihat/edit', {
       title: `Sunting Nasihat [#${id}]`,
       updateUrl: `/nasihat/${id}`,
-      nasihatText: nasihat.text,
-      nasihat: nasihat
+      nasihat: nasihat,
+      captcha: chars.data,
+      error: flashError
     })
   })
 })
@@ -90,6 +98,18 @@ router.put('/:id', (req, res, next) => {
   var port = config.env === 'development' ? ':' + config.port : ''
   var hostnameAndPort = req.hostname + port
   var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+
+  // validate captcha
+  console.log('req.body.captcha : ' + req.body.captcha)
+  console.log('req.session.captcha : ' + req.session.captcha)
+
+  if (req.body.captcha !== req.session.captcha) {
+    var err = Error('Captcha not valid')
+    console.log(err)
+    req.session.flash = 'Captcha not valid'
+    res.redirect('/nasihat/' + id + '/edit')
+    return
+  }
 
   request.put({url: apiUrl, form: req.body}, (err, response, body) => {
     if (err) {
