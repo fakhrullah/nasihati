@@ -47,13 +47,69 @@ router.get('/prev/:id', function (req, res) {
 })
 
 /**
+ * GET /nasihat/:id/edit
+ */
+router.get('/:id/edit', (req, res, next) => {
+  var id = parseInt(req.params.id)
+  console.log(`show edit form for nasihat on id ${id}`)
+  // TODO use config.baseUrl
+  var port = config.env === 'development' ? ':' + config.port : ''
+  var hostnameAndPort = req.hostname + port
+  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+
+  request.get(apiUrl, (err, response, body) => {
+    if (err) {
+      console.log(err)
+      next(err)
+    }
+
+    var nasihat = JSON.parse(body)
+
+    res.render('nasihat/edit', {
+      title: `Sunting Nasihat [#${id}]`,
+      updateUrl: `/nasihat/${id}`,
+      nasihatText: nasihat.text,
+      nasihat: nasihat
+    })
+  })
+})
+
+/**
+ * PUT nasihat/:id
+ *
+ * Update nasihat (quote)
+ */
+router.put('/:id', (req, res, next) => {
+  var id = parseInt(req.params.id)
+  console.log('update nasihat at id ' + id)
+  var dataSubmitByUser = req.body
+  console.log('data submit by user -------')
+  console.log(dataSubmitByUser)
+  console.log('----------')
+
+  var port = config.env === 'development' ? ':' + config.port : ''
+  var hostnameAndPort = req.hostname + port
+  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+
+  request.put({url: apiUrl, form: req.body}, (err, response, body) => {
+    if (err) {
+      console.log(err)
+      return next(err)
+    }
+
+    res.redirect('/nasihat/' + id + '/edit')
+  })
+})
+
+/**
  * GET /nasihat/:id
  */
 router.get('/:id', (req, res, next) => {
-  console.log(JSON.stringify(req.header))
+  var id = parseInt(req.params.id)
+  console.log(`show nasihat at id ${id}`)
+  // TODO use config.baseUrl
   var port = config.env === 'development' ? ':' + config.port : ''
   var hostnameAndPort = req.hostname + port
-  var id = parseInt(req.params.id)
   var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
   var firstId = 1
   var lastId = 183
