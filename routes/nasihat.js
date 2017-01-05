@@ -11,6 +11,9 @@ var request = require('request')
 var svgCaptcha = require('svg-captcha')
 var config = require('../config.js')
 
+var baseUrl = config.env === 'development' ? 'http://localhost:3000' : 'https://nasihat.fajarhac.com'
+var apiUrlNasihatResource = baseUrl + '/api/v1/nasihat/'
+
 /**
  * Get next nasihat
  */
@@ -54,9 +57,7 @@ router.get('/:id/edit', (req, res, next) => {
   var id = parseInt(req.params.id)
   console.log(`show edit form for nasihat on id ${id}`)
   // TODO use config.baseUrl
-  var port = config.env === 'development' ? ':' + config.port : ''
-  var hostnameAndPort = req.hostname + port
-  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+  var apiUrl = `${apiUrlNasihatResource}${id}`
 
   request.get(apiUrl, (err, response, body) => {
     if (err) {
@@ -95,9 +96,7 @@ router.put('/:id', (req, res, next) => {
   console.log(dataSubmitByUser)
   console.log('----------')
 
-  var port = config.env === 'development' ? ':' + config.port : ''
-  var hostnameAndPort = req.hostname + port
-  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+  var apiUrl = `${apiUrlNasihatResource}${id}`
 
   // validate captcha
   console.log('req.body.captcha : ' + req.body.captcha)
@@ -128,9 +127,9 @@ router.get('/:id', (req, res, next) => {
   var id = parseInt(req.params.id)
   console.log(`show nasihat at id ${id}`)
   // TODO use config.baseUrl
-  var port = config.env === 'development' ? ':' + config.port : ''
-  var hostnameAndPort = req.hostname + port
-  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+  var apiUrl = `${apiUrlNasihatResource}${id}`
+  // TODO get lastId from DB
+  // better to let API handle this by sending next url link
   var firstId = 1
   var lastId = 183
 
