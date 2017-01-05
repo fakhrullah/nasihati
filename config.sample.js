@@ -8,6 +8,13 @@ module.exports = {
   env: 'production', // production, development, test
 
   /**
+   * Api
+   *
+   * If you want http://nasihat.fajarhac.com api key, please contact me.
+   */
+  apikey: 'secret', // 
+
+  /**
    * Port number where app should start.
    */
   port: 3000

@@ -8,7 +8,11 @@ var router = express.Router()
 var nasihatCol = require('../nasihat_col.js')
 // var nasihatCollection = require('../db/nasihat_collection.js')
 var request = require('request')
+var svgCaptcha = require('svg-captcha')
 var config = require('../config.js')
+
+var baseUrl = config.env === 'development' ? 'http://localhost:3000' : 'https://nasihat.fajarhac.com'
+var apiUrlNasihatResource = baseUrl + '/api/v1/nasihat/'
 
 /**
  * Get next nasihat
@@ -47,14 +51,85 @@ router.get('/prev/:id', function (req, res) {
 })
 
 /**
+ * GET /nasihat/:id/edit
+ */
+router.get('/:id/edit', (req, res, next) => {
+  var id = parseInt(req.params.id)
+  console.log(`show edit form for nasihat on id ${id}`)
+  // TODO use config.baseUrl
+  var apiUrl = `${apiUrlNasihatResource}${id}`
+
+  request.get(apiUrl, (err, response, body) => {
+    if (err) {
+      console.log(err)
+      next(err)
+    }
+
+    var flashError = req.session.flash || undefined
+    console.log(flashError)
+    req.session.flash = undefined
+
+    var nasihat = JSON.parse(body)
+    var chars = svgCaptcha.create()
+    req.session.captcha = chars.text
+
+    res.render('nasihat/edit', {
+      title: `Sunting Nasihat [#${id}]`,
+      updateUrl: `/nasihat/${id}`,
+      nasihat: nasihat,
+      captcha: chars.data,
+      error: flashError
+    })
+  })
+})
+
+/**
+ * PUT nasihat/:id
+ *
+ * Update nasihat (quote)
+ */
+router.put('/:id', (req, res, next) => {
+  var id = parseInt(req.params.id)
+  console.log('update nasihat at id ' + id)
+  var dataSubmitByUser = req.body
+  console.log('data submit by user -------')
+  console.log(dataSubmitByUser)
+  console.log('----------')
+
+  var apiUrl = `${apiUrlNasihatResource}${id}`
+
+  // validate captcha
+  console.log('req.body.captcha : ' + req.body.captcha)
+  console.log('req.session.captcha : ' + req.session.captcha)
+
+  if (req.body.captcha !== req.session.captcha) {
+    var err = Error('Captcha not valid')
+    console.log(err)
+    req.session.flash = 'Captcha not valid'
+    res.redirect('/nasihat/' + id + '/edit')
+    return
+  }
+
+  request.put({url: apiUrl, form: req.body}, (err, response, body) => {
+    if (err) {
+      console.log(err)
+      return next(err)
+    }
+
+    res.redirect('/nasihat/' + id + '/edit')
+  })
+})
+
+/**
  * GET /nasihat/:id
  */
 router.get('/:id', (req, res, next) => {
-  console.log(JSON.stringify(req.header))
-  var port = config.env === 'development' ? ':' + config.port : ''
-  var hostnameAndPort = req.hostname + port
   var id = parseInt(req.params.id)
-  var apiUrl = 'http://' + hostnameAndPort + '/api/v1/nasihat/' + id
+  console.log(`show nasihat at id ${id}`)
+  // TODO use config.baseUrl
+  var apiUrl = `${apiUrlNasihatResource}${id}`
+  // TODO get lastId from DB
+  // better to let API handle this by sending next url link
   var firstId = 1
   var lastId = 183
 

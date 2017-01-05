@@ -2,6 +2,9 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
+var session = require('express-session')
+var MongoStore = require('connect-mongo')(session)
+var methodOverride = require('method-override')
 var path = require('path')
 // var _ = require('lodash')
 var config = require('./config.js')
@@ -15,8 +18,24 @@ var config = require('./config.js')
  */
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser())
+// TODO add secret for session and cookie, use same secret from config
+app.use(session({
+  store: new MongoStore({
+    url: 'mongodb://localhost:27017/nasihat'
+  }),
+  resave: true,
+  saveUninitialized: true,
+  secret: 'secret'
+}))
+app.use(cookieParser('secret'))
 app.use(express.static(path.join(__dirname, '/public')))
+app.use(methodOverride((req, res) => {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 
 /*
  * set view engine
