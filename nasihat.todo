@@ -6,6 +6,22 @@ CRUD/Rest-API:
   ☐ Error handling response json on other not available routes - use res.json
   ☐ Add auth middleware on REST API
 
+CRUD/Rest-API-with-apikey: 
+  - with http header {'Authorization': 'Token secret'}
+  - manual test
+  Read - GET /api/v1/nasihat/:id:
+    ✔ should error: curl -X GET -H 'Authorization: Token sect' http://localhost:3000/api/v1/nasihat/18 @done (17-01-09 02:38)
+    ✔ should accept: curl -X GET -H 'Authorization: Token secret' http://localhost:3000/api/v1/nasihat/18 @done (17-01-09 02:38)
+  Update - PUT /api/v1/nasihat/:id :
+    ✔ should error: curl -X PUT -H 'Authorization: Token sect' -H 'Content-Type: application/json' -d '{"text": "nyaa"}' http://localhost:3000/api/v1/nasihat/185 @done (17-01-09 02:41)
+    ✔ should accept: curl -X PUT -H 'Authorization: Token secret' -H 'Content-Type: application/json' -d '{"text": "nyaa"}' http://localhost:3000/api/v1/nasihat/185 @done (17-01-09 02:45)
+  Create - POST /api/v1/nasihat/:id :
+    ✔ should error: curl -X POST -H 'Authorization: Token sect' -H 'Content-Type: application/json' -d '{"id": 186, "text": "nyaa186"}' http://localhost:3000/api/v1/nasihat/ @done (17-01-09 02:40)
+    ✔ should accept: curl -X POST -H 'Authorization: Token secret' -H 'Content-Type: application/json' -d '{"id": 186, "text": "nyaa186"}' http://localhost:3000/api/v1/nasihat/ @done (17-01-09 02:41)
+  Delete - DELETE /api/v1/nasihat/:id:
+    ✔ should error: curl -X DELETE -H 'Authorization: Token sect' http://localhost:3000/api/v1/nasihat/186 @done (17-01-09 02:46)
+    ✔ should error: curl -X DELETE -H 'Authorization: Token secret' http://localhost:3000/api/v1/nasihat/186 @done (17-01-09 02:47)
+
 Homepage:
   ✔ Show different nasihat daily but do not do random. Save shown data in cookie. @done (16-08-16 04:57)
   ✔ Design with beautiful - inspiration: https://dribbble.com/shots/1521733-Company-values-showcase https://dribbble.com/shots/1436240-Quote-App-Concept https://www.behance.net/gallery/36942689/Design-and-Creativity-Quotes https://dribbble.com/shots/1677391-Hadith-Web-App https://dribbble.com/shots/1671229-Hadith-Web-App @done (16-08-17 00:55)

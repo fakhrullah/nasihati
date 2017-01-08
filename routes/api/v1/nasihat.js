@@ -5,47 +5,45 @@
 var express = require('express')
 var router = express.Router()
 var nasihatCollection = require('../../../db/nasihat_collection.js')
-var config = require('../../../config.js')
+
+var passport = require('passport')
 
 // -------- middlewares -----
-
-/**
- * Block all api until authentication/authorization added only on production
- * TODO add auth guna passportjs then delete this preventation
- */
-router.use('/', function (req, res, next) {
-  if (config.env === 'production') {
-    console.log('Block temporary for production only. If you are on development, change config.js -> env: "development".')
-    res.status(403)
-    res.send('403 Forbidden')
-  }
-  next()
-})
+//
+// TODO add authetication admin for create (POST), edit with limitation (PUT), delete(DELETE)
+// TODO restructure nasihat collection so that editting for non-admin just add new revision
+// and admin job is approve revision to update
+//
 
 // ----- routes ---------
-
-router.get('/:id', function (req, res) {
+router.get('/:id', passport.authenticate('http-header-token', {session: false}))
+router.get('/:id', function (req, res, next) {
   var id = parseInt(req.params['id'])
 
-  console.log('show nasihat at id ' + id)
+  console.log('API: show nasihat at id ' + id)
 
   nasihatCollection.getNasihatById(id)
     .then(nasihat => res.json(nasihat))
 })
 
 // TODO secure editing by save history and let admin approve before accepting user submitted edit
-router.put('/:id', function (req, res) {
+router.put('/:id', passport.authenticate('http-header-token', {session: false}))
+router.put('/:id', function (req, res, next) {
   var id = parseInt(req.params['id'])
 
   console.log('update nasihat at id ' + id)
+  console.log('with data: ' + JSON.stringify(req.body))
 
   nasihatCollection.updateNasihatById(id, req.body)
     .then(data => {
-      console.log(data)
-      res.redirect('/api/v1/nasihat/' + id)
+      console.log('updated')
+      // res.redirect('/api/v1/nasihat/' + id)
+      res.json(data)
     })
+    .catch(err => console.log(err))
 })
 
+router.post('', passport.authenticate('http-header-token', {session: false}))
 router.post('/', function (req, res) {
   console.log('create new nasihat')
 
@@ -53,12 +51,12 @@ router.post('/', function (req, res) {
   nasihatCollection.createNasihat(req.body)
     .then(result => {
       console.log(result.result)
-      res.redirect('/')
-      // res.redirect('/api/v1/nasihat/')
+      res.json(result)
     })
     .catch(err => console.log(err))
 })
 
+router.delete('/:id', passport.authenticate('http-header-token', {session: false}))
 router.delete('/:id', function (req, res) {
   var id = parseInt(req.params['id'])
 
@@ -70,6 +68,9 @@ router.delete('/:id', function (req, res) {
     })
     .catch(err => console.log(err))
 })
+
+// TODO remove next and prev
+// Better way: redesign GET /:id API to send JSON contains id,url of next and prev
 
 /**
  * Get next
