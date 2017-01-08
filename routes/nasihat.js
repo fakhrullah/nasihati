@@ -14,6 +14,8 @@ var config = require('../config.js')
 var baseUrl = config.env === 'development' ? 'http://localhost:3000' : 'https://nasihat.fajarhac.com'
 var apiUrlNasihatResource = baseUrl + '/api/v1/nasihat/'
 
+var authorizationToken = {Authorization: 'Token ' + config.apikey}
+
 /**
  * Get next nasihat
  */
@@ -59,14 +61,17 @@ router.get('/:id/edit', (req, res, next) => {
   // TODO use config.baseUrl
   var apiUrl = `${apiUrlNasihatResource}${id}`
 
-  request.get(apiUrl, (err, response, body) => {
+  var options = {url: apiUrl, headers: authorizationToken}
+
+  request.get(options, (err, response, body) => {
     if (err) {
       console.log(err)
       next(err)
+      return
     }
 
     var flashError = req.session.flash || undefined
-    console.log(flashError)
+    console.log('flashError: ' + flashError)
     req.session.flash = undefined
 
     var nasihat = JSON.parse(body)
@@ -110,7 +115,10 @@ router.put('/:id', (req, res, next) => {
     return
   }
 
-  request.put({url: apiUrl, form: req.body}, (err, response, body) => {
+  delete (req.body.captcha)
+  var options = {url: apiUrl, headers: authorizationToken, form: req.body}
+
+  request.put(options, (err, response, body) => {
     if (err) {
       console.log(err)
       return next(err)
@@ -133,10 +141,13 @@ router.get('/:id', (req, res, next) => {
   var firstId = 1
   var lastId = 183
 
-  request.get(apiUrl, (err, response, body) => {
+  var options = {url: apiUrl, headers: authorizationToken}
+
+  request.get(options, (err, response, body) => {
     if (err) {
       console.log(err)
       next(err)
+      return
     }
 
     var nasihat = JSON.parse(body)

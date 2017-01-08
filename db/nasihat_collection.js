@@ -43,7 +43,7 @@ module.exports = {
                 // TODO pass a full result not result.result
                 if (err) reject(err)
 
-                resolve(result.result)
+                resolve(result)
                 db.close()
               })
         })

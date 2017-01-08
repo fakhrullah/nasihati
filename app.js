@@ -9,9 +9,26 @@ var path = require('path')
 // var _ = require('lodash')
 var config = require('./config.js')
 
+var passport = require('passport')
+var HttpHeaderTokenStrategy = require('passport-http-header-token').Strategy
+var apikeyfromdb = 'secret'
+
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
 
+passport.use(new HttpHeaderTokenStrategy({},
+  (apikey, cb) => {
+    if (apikey === apikeyfromdb) {
+      console.log('apikey valid')
+      return cb(null, apikeyfromdb)
+    } else {
+      console.log('apikey not valid')
+      return cb(new Error('Api Key not valid!'))
+    }
+  }))
+
+// passport.serializeUser((key, cb) => cb(null, key))
+// passport.deserializeUser((key, cb) => cb(null, key))
 /*
  * use body parser to get data from request
  * use cookie-parser to set and get cookie
@@ -36,6 +53,9 @@ app.use(methodOverride((req, res) => {
     return method
   }
 }))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 /*
  * set view engine
