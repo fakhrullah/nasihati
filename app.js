@@ -66,7 +66,9 @@ app.set('view engine', 'pug')
 // Routes
 app.use('/', require('./routes/index'))
 app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
+app.use('/api/v1/user', require('./routes/api/v1/user.js'))
 app.use('/nasihat', require('./routes/nasihat.js'))
+app.use('/user', require('./routes/user.js'))
 
 // development error handler
 // will print stacktrace
@@ -94,3 +96,4 @@ app.use(function (err, req, res, next) {
 app.listen(config.port, function () {
   console.log('Example app listening on port ' + config.port + '!')
 })
+
