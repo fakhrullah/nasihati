@@ -9,7 +9,7 @@ var collectionName = 'user'
 module.exports = {
 
   /**
-   * Get a nasihat by id
+   * Get a user by id
    */
   getUserById (id) {
     return new Promise((resolve, reject) => {
@@ -27,20 +27,38 @@ module.exports = {
         })
         .catch(err => console.log(err))
     })
+  },
+
+  getUserByApiKey (apikey) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .find({apikey: apikey})
+            .toArray((err, users) => {
+              if (err) reject(err)
+              if (!users.length) reject(new Error('No user with apikey'))
+              if (users.length > 1) reject(new Error('Same user should not has same key. This is error in software or database, contact site owner.'))
+
+              resolve(users[0])
+              db.close()
+            })
+        })
+    })
   }
 
   /**
-   * Update nasihat by id
+   * Update user by id
    */
 
   /**
-   * Create a new nasihat
+   * Create a new user
    * TODO sanitize insertData @important
    * TODO automatic add increment id field to insertData @important @urgent
    */
 
   /**
-   * Delete a nasihat
+   * Delete a user
    * @params id if not Number use mongodb _id: ObjectId
    */
 

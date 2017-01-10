@@ -9,22 +9,28 @@ var path = require('path')
 // var _ = require('lodash')
 var config = require('./config.js')
 
+var userCollection = require('./db/user_collection.js')
+
 var passport = require('passport')
 var HttpHeaderTokenStrategy = require('passport-http-header-token').Strategy
-var apikeyfromdb = 'secret'
+// var apikeyfromdb = 'secret'
 
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
 
 passport.use(new HttpHeaderTokenStrategy({},
   (apikey, cb) => {
-    if (apikey === apikeyfromdb) {
-      console.log('apikey valid')
-      return cb(null, apikeyfromdb)
-    } else {
-      console.log('apikey not valid')
-      return cb(new Error('Api Key not valid!'))
-    }
+    userCollection.getUserByApiKey(apikey)
+      .then(user => {
+        if (apikey === user.apikey) {
+          console.log('apikey valid')
+          return cb(null, user)
+        } else {
+          console.log('apikey not valid')
+          return cb(new Error('Api Key not valid!'))
+        }
+      })
+      .catch(err => console.log(err))
   }))
 
 // passport.serializeUser((key, cb) => cb(null, key))
