@@ -38,7 +38,7 @@ module.exports = {
         .then(db => {
           db.collection(collectionName)
             .updateOne({id: id},
-              { $set: updateData },
+              updateData,
               (err, result) => {
                 // TODO pass a full result not result.result
                 if (err) reject(err)
