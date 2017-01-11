@@ -7,7 +7,7 @@ var router = express.Router()
 var nasihatCollection = require('../../../db/nasihat_collection.js')
 
 var passport = require('passport')
-var mongodbObjectID = require('mongodb').ObjectID
+var MongodbObjectID = require('mongodb').ObjectID
 
 // -------- middlewares -----
 //
@@ -37,7 +37,7 @@ router.put('/:id', function (req, res, next) {
 
   // Only add update to revision
   var nasihatUpdate = {}
-  nasihatUpdate._id = new mongodbObjectID()
+  nasihatUpdate._id = new MongodbObjectID()
   nasihatUpdate.text = req.body.text
   nasihatUpdate.source = req.body.source
   nasihatUpdate.createdAt = new Date()

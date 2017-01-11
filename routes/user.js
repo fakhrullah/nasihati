@@ -38,7 +38,7 @@ router.get('/create', (req, res) => {
  *
  * POST /
  */
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
   console.log('create new resource')
 
   // handle data then redirect to show/edit page
@@ -74,7 +74,7 @@ router.get('/:id/edit', (req, res) => {
  *
  * PUT /:id
  */
-router.put('/:id', function (req, res) {
+router.put('/:id', function (req, res, next) {
   console.log('update resource at id ' + id)
 
   var id = req.params['id']
@@ -88,7 +88,7 @@ router.put('/:id', function (req, res) {
  *
  * DELETE /:id
  */
-router.delete('/:id', function (req, res) {
+router.delete('/:id', function (req, res, next) {
   console.log('delete resource at id ' + id)
 
   var id = req.params['id']
