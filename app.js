@@ -71,6 +71,7 @@ app.set('view engine', 'pug')
 
 // Routes
 app.use('/', require('./routes/index'))
+app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat-updates.js'))
 app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
 app.use('/api/v1/user', require('./routes/api/v1/user.js'))
 app.use('/nasihat', require('./routes/nasihat.js'))

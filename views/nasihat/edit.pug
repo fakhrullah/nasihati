@@ -13,13 +13,14 @@ html
       if (error !== undefined)
         .error(style='color:red;font-weight:bold')= error
 
-      ul
-        each nasihatUpdate in nasihat.updates
-          li
-            .nasihatText= nasihatUpdate.text
-            .nasihatSource= nasihatUpdate.source
-            button(onclick="approveUpdate("+nasihatUpdate._id+")") TERIMA KEMASKINI
-            button(onclick="deleteUpdate("+nasihatUpdate._id+")") X
+      if (nasihat.updates)
+        ul
+          each nasihatUpdate in nasihat.updates
+            li
+              .nasihatText= nasihatUpdate.text
+              .nasihatSource= nasihatUpdate.source
+              button(onclick="approveUpdate("+nasihatUpdate._id+")") TERIMA KEMASKINI
+              button(onclick="deleteUpdate("+nasihatUpdate._id+")") X
 
       form.edit-form(action= updateUrl method='POST' enctype='application/x-www-form-urlencoded')
         input.hidden(type='hidden' name='_method' value='PUT')
