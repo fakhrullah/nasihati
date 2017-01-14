@@ -27,10 +27,10 @@ passport.use(new HttpHeaderTokenStrategy({},
           return cb(null, user)
         } else {
           console.log('apikey not valid')
-          return cb(new Error('Api Key not valid!'))
+          throw new Error('Api Key not valid!')
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => cb(err))
   }))
 
 // passport.serializeUser((key, cb) => cb(null, key))

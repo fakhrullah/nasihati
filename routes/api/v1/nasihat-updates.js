@@ -7,14 +7,37 @@ var express = require('express')
 var router = express.Router()
 var nasihatCollection = require('../../../db/nasihat_collection.js')
 
+var passport = require('passport')
+
 var ObjectID = require('mongodb').ObjectID
 
-router.get('/:nasihatId/updates/', (req, res, next) => {
+router.use('/:nasihatId/updates', (req, res, next) => {
+  passport.authenticate('http-header-token', (err, user, info) => {
+    if (err) {
+      console.log(err)
+      res.json({status: 'API token not valid', msg: err.message})
+      return
+    }
+    if (!user) {
+      console.log(user)
+      res.json({status: 'failed', msg: 'API token not found'})
+      return
+    }
+    next()
+  })(req, res, next)
+})
+
+router.get('/:nasihatId/updates', (req, res, next) => {
+  console.log('GET nasihat#' + req.params.nasihatId + ' revisions')
+
   nasihatCollection.getNasihatById(parseInt(req.params.nasihatId))
     .then(nasihat => {
+      if (!nasihat.updates || nasihat.updates.length === 0) {
+        throw new Error('No revisions available')
+      }
       res.json(nasihat.updates)
     })
-    .catch(err => res.json(err))
+    .catch(err => res.json({status: 'failed', msg: err.message}))
 })
 
 // approve
