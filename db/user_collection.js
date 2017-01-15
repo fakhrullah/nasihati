@@ -45,6 +45,32 @@ module.exports = {
             })
         })
     })
+  },
+
+  getUserByUsername (username) {
+    return new Promise((resolve, reject) => {
+      connectToDB(url)
+        .then(db => {
+          db.collection(collectionName)
+            .find({username: username})
+            .toArray((err, users) => {
+              if (err) {
+                reject(err)
+                db.close()
+                return
+              }
+
+              if (!users.length) {
+                reject(new Error('User not found.'))
+                db.close()
+                return
+              }
+
+              resolve(users[0])
+              db.close()
+            })
+        })
+    })
   }
 
   /**

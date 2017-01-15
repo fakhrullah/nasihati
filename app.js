@@ -13,7 +13,7 @@ var userCollection = require('./db/user_collection.js')
 
 var passport = require('passport')
 var HttpHeaderTokenStrategy = require('passport-http-header-token').Strategy
-// var apikeyfromdb = 'secret'
+var LocalStrategy = require('passport-local').Strategy
 
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
@@ -33,8 +33,22 @@ passport.use(new HttpHeaderTokenStrategy({},
       .catch(err => cb(err))
   }))
 
-// passport.serializeUser((key, cb) => cb(null, key))
-// passport.deserializeUser((key, cb) => cb(null, key))
+passport.use(new LocalStrategy((username, password, cb) => {
+  userCollection.getUserByUsername(username)
+    .then(user => {
+      if (!user) throw new Error('User not found. Please insert correct username.')
+      if (password !== user.password) throw new Error('Password is wrong')
+      cb(null, user)
+    })
+    .catch(err => cb(err))
+}))
+
+passport.serializeUser((user, cb) => cb(null, user._id))
+passport.deserializeUser((userId, cb) => {
+  userCollection.getUserById(userId)
+    .then(user => cb(null, user))
+    .catch(err => cb(err))
+})
 /*
  * use body parser to get data from request
  * use cookie-parser to set and get cookie
