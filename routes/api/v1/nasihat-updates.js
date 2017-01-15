@@ -41,7 +41,7 @@ router.get('/:nasihatId/updates', (req, res, next) => {
 })
 
 // approve
-router.put('/:nasihatId/updates/:id', passport.authenticate('local', {session: true}))
+router.put('/:nasihatId/updates/:id', passport.authenticate('local', {session: false}))
 router.put('/:nasihatId/updates/:id', (req, res, next) => {
   console.log('API update nasihat with revision ' + req.params.id)
 
@@ -93,7 +93,7 @@ router.put('/:nasihatId/updates/:id', (req, res, next) => {
  * DELETE
  * Delete nasihat updates revision. Used when user submitted updates is bad and should not be approve.
  */
-router.delete('/:nasihatId/updates/:id', passport.authenticate('local', {session: true}))
+router.delete('/:nasihatId/updates/:id', passport.authenticate('local', {session: false}))
 router.delete('/:nasihatId/updates/:id', (req, res, next) => {
   var nasihatId = parseInt(req.params.nasihatId)
   var nasihatUpdatesRevisionId = req.params.id
