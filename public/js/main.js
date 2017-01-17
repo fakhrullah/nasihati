@@ -97,47 +97,121 @@
       }, 1000)
     })
   })
-
-  /**
-   * Toggle class for element
-   * @param  {DOM} el        DOM element
-   * @param  {string} className name for toggle class
-   */
-  function toggleClass (el, className) {
-    if (el.classList) {
-      el.classList.toggle(className)
-    } else {
-      var classes = el.className.split(' ')
-      var existingIndex = classes.indexOf(className)
-
-      if (existingIndex >= 0) {
-        classes.splice(existingIndex, 1)
-      } else {
-        classes.push(className)
-      }
-
-      el.className = classes.join(' ')
-    }
-  }
-
-  function getJSON (url) {
-    return new Promise(function (resolve, reject) {
-      // eslint-disable-next-line
-      var xhr = new XMLHttpRequest()
-
-      xhr.open('get', url, true)
-      xhr.responseType = 'json'
-
-      xhr.onload = function () {
-        var status = xhr.status
-        if (status === 200) {
-          resolve(xhr.response)
-        } else {
-          reject(status)
-        }
-      }
-
-      xhr.send()
-    })
-  }
 })()
+
+// ------------- global functions ----------------
+/**
+ * Toggle class for element
+ * @param  {DOM} el        DOM element
+ * @param  {string} className name for toggle class
+ */
+function toggleClass (el, className) {
+  if (el.classList) {
+    el.classList.toggle(className)
+  } else {
+    var classes = el.className.split(' ')
+    var existingIndex = classes.indexOf(className)
+
+    if (existingIndex >= 0) {
+      classes.splice(existingIndex, 1)
+    } else {
+      classes.push(className)
+    }
+
+    el.className = classes.join(' ')
+  }
+}
+
+function getJSON (url) {
+  return new Promise(function (resolve, reject) {
+    // eslint-disable-next-line
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('get', url, true)
+    xhr.responseType = 'json'
+
+    xhr.onload = function () {
+      var status = xhr.status
+      if (status === 200) {
+        resolve(xhr.response)
+      } else {
+        reject(status)
+      }
+    }
+
+    xhr.send()
+  })
+}
+
+function httpPOST (url, data) {
+  return new Promise(function (resolve, reject) {
+    // eslint-disable-next-line
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+
+    xhr.onload = function () {
+      var status = xhr.status
+      // console.log(status)
+      if (status === 200) {
+        resolve(xhr.response)
+      } else {
+        reject(status)
+      }
+    }
+    xhr.send(data)
+  })
+}
+
+// eslint-disable-next-line
+function approveUpdate(nasihatId, revisionId, element) {
+  console.log('update nasihat#' + nasihatId + ' revision#' + revisionId)
+
+  var uUsername = document.querySelector('#adminDetailForm #username').value
+  var uPassword = document.querySelector('#adminDetailForm #password').value
+  var _method = '_method=put'
+  var submitData = 'status=approve&username=' + uUsername + '&password=' + uPassword + '&' + _method
+
+  // console.log(submitData)
+  var url = '/nasihat/' + nasihatId + '/revisions/' + revisionId
+  httpPOST(url, submitData)
+    .then(function (data) {
+      element.parentNode.style.display = 'none'
+    })
+    .catch(function (err) {
+      console.log(err)
+    })
+}
+
+// eslint-disable-next-line
+function deleteUpdate(nasihatId, revisionId, element) {
+  console.log('delete nasihat#' + nasihatId + ' revision#' + revisionId)
+
+  var overlay = document.createElement('div')
+  overlay.style.width = '100%'
+  overlay.style.height = '100%'
+  overlay.style.transition = 'ease-in 500ms all'
+  overlay.style.backgroundColor = 'rgba(0,0,0,0.8)'
+  overlay.style.position = 'absolute'
+
+  var parent = element.parentNode
+  parent.style.position = 'relative'
+  parent.insertBefore(overlay, parent.firstChild)
+
+  var uUsername = document.querySelector('#adminDetailForm #username').value
+  var uPassword = document.querySelector('#adminDetailForm #password').value
+  var _method = '_method=delete'
+  var submitData = 'username=' + uUsername + '&password=' + uPassword + '&' + _method
+
+  // console.log(submitData)
+  var url = '/nasihat/' + nasihatId + '/revisions/' + revisionId
+  httpPOST(url, submitData)
+    .then(function (data) {
+      element.parentNode.style.display = 'none'
+    })
+    .catch(function (err) {
+      console.log(err)
+      setTimeout(function () { parent.removeChild(overlay) }, 1000)
+    })
+}

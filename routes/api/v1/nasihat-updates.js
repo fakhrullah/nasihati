@@ -121,7 +121,7 @@ router.delete('/:nasihatId/updates/:id', (req, res, next) => {
         throw error
       }
     })
-    .catch(err => res.json({status: 'failed', msg: err.message, result: err.result}))
+    .catch(err => res.status(404).json({status: 'failed', msg: err.message, result: err.result}))
 })
 
 module.exports = router

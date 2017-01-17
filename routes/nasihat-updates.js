@@ -68,7 +68,7 @@ router.put('/:nasihatId/revisions/:id', function (req, res) {
         resBody = JSON.parse(body)
       } catch (e) {
         resBody = {error: e.message, body: body}
-        res.json(resBody)
+        res.status(404).json(resBody)
         return
       }
 
@@ -77,7 +77,7 @@ router.put('/:nasihatId/revisions/:id', function (req, res) {
         req.session.flash = err.message
         // res.redirect(nasihatId + '/edit')
         resBody.error = err.message
-        res.json(resBody)
+        res.status(404).json(resBody)
         return
       }
 
@@ -103,6 +103,11 @@ router.delete('/:nasihatId/revisions/:id', function (req, res) {
   request.delete(options, (err, httpRes, body) => {
     if (err) {
       res.status(404).send(body)
+      return
+    }
+    if (httpRes.statusCode !== 200) {
+      console.log(httpRes.statusCode)
+      res.status(httpRes.statusCode).send(body)
       return
     }
     res.send(body)

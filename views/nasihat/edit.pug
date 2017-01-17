@@ -3,6 +3,7 @@ html
   head
     meta(name="viewport" content="width=device-width")
     title= title
+    script(src='/js/es6-promise.js')
 
   body.edit
 
@@ -13,14 +14,19 @@ html
       if (error !== undefined)
         .error(style='color:red;font-weight:bold')= error
 
+      form.admin-detail#adminDetailForm
+        .explainer Isi jika anda admin yang nak kemaskini ke edisi #[em (revision)] terbaru sahaja
+        input(name='username' type='text' placeholder='username' id='username')
+        input(name='password' type='password' placeholder='password' id='password')
+
       if (nasihat.updates)
         ul
           each nasihatUpdate in nasihat.updates
             li
               .nasihatText= nasihatUpdate.text
               .nasihatSource= nasihatUpdate.source
-              button(onclick="approveUpdate("+nasihatUpdate._id+")") TERIMA KEMASKINI
-              button(onclick="deleteUpdate("+nasihatUpdate._id+")") X
+              button(onclick="approveUpdate(" + nasihat.id + ",'"+nasihatUpdate._id+"', this)") TERIMA KEMASKINI
+              button(onclick="deleteUpdate(" + nasihat.id + ",'"+nasihatUpdate._id+"', this)") X
 
       form.edit-form(action= updateUrl method='POST' enctype='application/x-www-form-urlencoded')
         input.hidden(type='hidden' name='_method' value='PUT')
@@ -41,3 +47,5 @@ html
         //- TODO fix DB structures add, read_more_links for references to understand more about quote.
         //- For example, add link to ceramah video by ustaz talk about hadis or alquran above from YouTube
         //- or any website that contain article tafsir (explainer) about above quote
+
+    script(src="/js/main.js")
