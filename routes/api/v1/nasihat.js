@@ -7,6 +7,7 @@ var router = express.Router()
 var nasihatCollection = require('../../../db/nasihat_collection.js')
 
 var passport = require('passport')
+var MongodbObjectID = require('mongodb').ObjectID
 
 // -------- middlewares -----
 //
@@ -34,7 +35,16 @@ router.put('/:id', function (req, res, next) {
   console.log('update nasihat at id ' + id)
   console.log('with data: ' + JSON.stringify(req.body))
 
-  nasihatCollection.updateNasihatById(id, req.body)
+  // Only add update to revision
+  var nasihatUpdate = {}
+  nasihatUpdate._id = new MongodbObjectID()
+  nasihatUpdate.text = req.body.text
+  nasihatUpdate.source = req.body.source
+  nasihatUpdate.createdAt = new Date()
+  var updateData = {$push: {updates: nasihatUpdate}}
+
+  // should use nasihatModel as middleware before the database
+  nasihatCollection.updateNasihatById(id, updateData)
     .then(data => {
       console.log('updated')
       // res.redirect('/api/v1/nasihat/' + id)

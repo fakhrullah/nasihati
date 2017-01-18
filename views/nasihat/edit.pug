@@ -1,34 +1,42 @@
-doctype
-html
-  head
-    meta(name="viewport" content="width=device-width")
-    title= title
+extends ../master.pug
 
-  body.edit
+block maincontent
+  section.main  
+    h1.title= title
 
-    section
+    if (error !== undefined)
+      .error(style='color:red;font-weight:bold')= error
 
-      h1.title= title
+    form.admin-detail#adminDetailForm
+      .explainer Isi jika anda admin yang nak kemaskini ke edisi #[em (revision)] terbaru sahaja
+      input(name='username' type='text' placeholder='username' id='username')
+      input(name='password' type='password' placeholder='password' id='password')
 
-      if (error !== undefined)
-        .error(style='color:red;font-weight:bold')= error
+    if (nasihat.updates)
+      ul
+        each nasihatUpdate in nasihat.updates
+          li
+            .nasihatText= nasihatUpdate.text
+            .nasihatSource= nasihatUpdate.source
+            button(onclick="approveUpdate(" + nasihat.id + ",'"+nasihatUpdate._id+"', this)") TERIMA KEMASKINI
+            button(onclick="deleteUpdate(" + nasihat.id + ",'"+nasihatUpdate._id+"', this)") X
 
-      form.edit-form(action= updateUrl method='POST' enctype='application/x-www-form-urlencoded')
-        input.hidden(type='hidden' name='_method' value='PUT')
-        .form-group
-          label(for='nasihatText') Petikan nasihat
-          textarea(name='text' id='nasihatText' rows=6 cols=100)= nasihat.text
+    form.edit-form(action= updateUrl method='POST' enctype='application/x-www-form-urlencoded')
+      input.hidden(type='hidden' name='_method' value='PUT')
+      .form-group
+        label(for='nasihatText') Petikan nasihat
+        textarea(name='text' id='nasihatText' rows=6 cols=100)= nasihat.text
 
-        .form-group
-          label(for='nasihatSource') Rujukan petikan
-          input(type='text' name='source' id='nasihatSource' placeholder='Surah Al-Fatihah : 5' value=nasihat.source)
+      .form-group
+        label(for='nasihatSource') Rujukan petikan
+        input(type='text' name='source' id='nasihatSource' placeholder='Surah Al-Fatihah : 5' value=nasihat.source)
 
-        .form-group
-          .captcha!= captcha
-          label() Masukkan aksara dalam gambar di atas
-          input(type='text' name='captcha')
+      .form-group
+        .captcha!= captcha
+        label() Masukkan aksara dalam gambar di atas
+        input(type='text' name='captcha')
 
-        button(type='submit') KEMASKINI
-        //- TODO fix DB structures add, read_more_links for references to understand more about quote.
-        //- For example, add link to ceramah video by ustaz talk about hadis or alquran above from YouTube
-        //- or any website that contain article tafsir (explainer) about above quote
+      button(type='submit') KEMASKINI
+      //- TODO fix DB structures add, read_more_links for references to understand more about quote.
+      //- For example, add link to ceramah video by ustaz talk about hadis or alquran above from YouTube
+      //- or any website that contain article tafsir (explainer) about above quote

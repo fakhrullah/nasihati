@@ -149,7 +149,7 @@ router.get('/:id', (req, res, next) => {
       next(err)
       return
     }
-
+    console.log(body)
     var nasihat = JSON.parse(body)
 
     // TODO : think better way. May be API should give next and prev link

@@ -13,7 +13,7 @@ var userCollection = require('./db/user_collection.js')
 
 var passport = require('passport')
 var HttpHeaderTokenStrategy = require('passport-http-header-token').Strategy
-// var apikeyfromdb = 'secret'
+var LocalStrategy = require('passport-local').Strategy
 
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
@@ -27,14 +27,28 @@ passport.use(new HttpHeaderTokenStrategy({},
           return cb(null, user)
         } else {
           console.log('apikey not valid')
-          return cb(new Error('Api Key not valid!'))
+          throw new Error('Api Key not valid!')
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => cb(err))
   }))
 
-// passport.serializeUser((key, cb) => cb(null, key))
-// passport.deserializeUser((key, cb) => cb(null, key))
+passport.use(new LocalStrategy((username, password, cb) => {
+  userCollection.getUserByUsername(username)
+    .then(user => {
+      if (!user) throw new Error('User not found. Please insert correct username.')
+      if (password !== user.password) throw new Error('Password is wrong')
+      cb(null, user)
+    })
+    .catch(err => cb(err))
+}))
+
+passport.serializeUser((user, cb) => cb(null, user._id))
+passport.deserializeUser((userId, cb) => {
+  userCollection.getUserById(userId)
+    .then(user => cb(null, user))
+    .catch(err => cb(err))
+})
 /*
  * use body parser to get data from request
  * use cookie-parser to set and get cookie
@@ -71,8 +85,10 @@ app.set('view engine', 'pug')
 
 // Routes
 app.use('/', require('./routes/index'))
+app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat-updates.js'))
 app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
 app.use('/api/v1/user', require('./routes/api/v1/user.js'))
+app.use('/nasihat', require('./routes/nasihat-updates.js'))
 app.use('/nasihat', require('./routes/nasihat.js'))
 app.use('/user', require('./routes/user.js'))
 

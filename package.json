@@ -14,6 +14,7 @@
     "mongodb": "^2.2.16",
     "passport": "^0.3.2",
     "passport-http-header-token": "^1.1.0",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.0-beta6",
     "request": "^2.79.0",
     "svg-captcha": "^1.2.1"
@@ -26,17 +27,25 @@
     "gulp-postcss": "^6.2.0",
     "gulp-rename": "^1.2.2",
     "postcss-cssnext": "^2.9.0",
-    "postcss-nested": "^1.0.0"
+    "postcss-nested": "^1.0.0",
+    "pre-commit": "^1.2.2"
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "standard"
+    "dev": "nodemon --debug app.js",
+    "test": "echo \"test\" && exit 1",
+    "lint": "standard",
+    "bump": "npm version patch",
+    "bump:minor": "npm version minor",
+    "bump:major": "npm version major"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fakhrullah/nasihati.git"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "keywords": [
     "quote",
     "quran",
