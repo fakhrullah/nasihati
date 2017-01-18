@@ -1,48 +1,39 @@
-doctype
-html
-  head
-    link(rel="stylesheet" href="/css/main.css")
-    meta(name="viewport" content="width=device-width")
-    title= title
+extends ../master.pug
+  
+block maincontent
+  section.main-content.main
+    header.header
+      button.random
+        svg.siv.siv-random(width=24 height=24)
+          use(xlink:href="/icons/random.svg#random")
 
-  body
+      button.share
+        svg.siv.siv-share(width=24 height=24)
+          use(xlink:href="/icons/share.svg#share")
 
-    section.main-content
+    h1.title= title
 
-      header.header
-        button.random
-          svg.siv.siv-random(width=24 height=24)
-            use(xlink:href="/icons/random.svg#random")
+    p.quote.nasihat#nasihatQuote #{quote}
+    p.source#nasihatQuoteSource= source
 
-        button.share
-          svg.siv.siv-share(width=24 height=24)
-            use(xlink:href="/icons/share.svg#share")
+    button#more.more
+     svg.siv.siv-ellipsis(width=32 height=32)
+      use(xlink:href="/icons/ellipsis.svg#ellipsis")
 
-      h1.title= title
+block navigation
+  nav.nav
+    button#menu-toggle
+      svg.siv.siv-bars(width=32 height=32)
+        use(xlink:href="/icons/bars.svg#bars")
+    ul#menu.menu.hidden
+      li #[button#about-toggle.nav-btn ABOUT]
+      li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
 
-      p.quote.nasihat#nasihatQuote #{quote}
-      p.source#nasihatQuoteSource= source
+  if (nextLink !== undefined)
+    a.next(href=nextLink) } <!-- &gt;-->
 
-      button#more.more
-       svg.siv.siv-ellipsis(width=32 height=32)
-        use(xlink:href="/icons/ellipsis.svg#ellipsis")
+  if (prevLink !== undefined)
+    a.prev(href=prevLink) { <!-- &lt; -->
 
-    nav.nav
-      button#menu-toggle
-        svg.siv.siv-bars(width=32 height=32)
-          use(xlink:href="/icons/bars.svg#bars")
-      ul#menu.menu.hidden
-        li #[button#about-toggle.nav-btn ABOUT]
-        li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
-
-    if (nextLink !== undefined)
-      a.next(href=nextLink) } <!-- &gt;-->
-
-    if (prevLink !== undefined)
-      a.prev(href=prevLink) { <!-- &lt; -->
-
-    include ../modals/about
-    include ../modals/nasihatbot
-
-    script(src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js")
-    script(src="/js/main.js")
+  include ../modals/about
+  include ../modals/nasihatbot

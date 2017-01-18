@@ -443,7 +443,7 @@ body{
         font-size: 18px;
         color: rgba(255, 255, 255, .96);
     }
-	}
+}
 
 @media(min-width: 600px){
 	body{
@@ -494,7 +494,11 @@ body{
     .header button {
         margin: 0;
     }
-	}
+}
+
+.main{
+    z-index: 10;
+}
 
 .main-content{
 	width: 80%;
