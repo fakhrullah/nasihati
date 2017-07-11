@@ -8,26 +8,6 @@ var url = 'mongodb://localhost:27017/nasihat'
 module.exports = {
 
   /**
-   * Get a nasihat by id
-   */
-  getNasihatById: function (id, callback) {
-    MongoClient.connect(url, function (err, db) {
-      // console.log("Connected succesfully to server")
-
-      if (err) throw err
-
-      var col = db.collection('nasihats')
-
-      // TODO use findOne({id: id})
-      col.find({id: id}).limit(1).toArray(function (err, data) {
-        callback(err, data[0])
-
-        db.close()
-      })
-    })
-  },
-
-  /**
    * Update nasihat by id
    */
   updateNasihatById: function (id, updateData, callback) {

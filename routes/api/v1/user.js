@@ -65,9 +65,8 @@ router.get('/:id', function (req, res) {
  * PUT /:id
  */
 router.put('/:id', function (req, res) {
-  console.log('update resource at id ' + id)
-
   var id = req.params['id']
+  console.log('update resource at id ' + id)
 
   // handle data then redirect to show/edit page
 
@@ -80,9 +79,8 @@ router.put('/:id', function (req, res) {
  * DELETE /:id
  */
 router.delete('/:id', function (req, res) {
-  console.log('delete resource at id ' + id)
-
   var id = req.params['id']
+  console.log('delete resource at id ' + id)
 
   // handle data then redirect to show all resource
 

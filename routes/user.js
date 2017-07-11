@@ -51,9 +51,8 @@ router.post('/', function (req, res, next) {
  * GET /:id
  */
 router.get('/:id', function (req, res) {
-  console.log('show resource at id ' + id)
-
   var id = req.params['id']
+  console.log('show resource at id ' + id)
 
   res.status(404).send('None')
 })
@@ -75,9 +74,8 @@ router.get('/:id/edit', (req, res) => {
  * PUT /:id
  */
 router.put('/:id', function (req, res, next) {
-  console.log('update resource at id ' + id)
-
   var id = req.params['id']
+  console.log('update resource at id ' + id)
 
   // handle data then redirect to show/edit page
   next(404)
@@ -89,9 +87,8 @@ router.put('/:id', function (req, res, next) {
  * DELETE /:id
  */
 router.delete('/:id', function (req, res, next) {
-  console.log('delete resource at id ' + id)
-
   var id = req.params['id']
+  console.log('delete resource at id ' + id)
 
   // handle data then redirect to show all resource
   next(404)
