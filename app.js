@@ -2,6 +2,9 @@
  * Application Requirement
  * @type {*}
  */
+/* global require, __dirname, console */
+/* eslint no-console: 0 */
+
 let express = require('express')
 let app = express()
 let bodyParser = require('body-parser')
@@ -73,7 +76,7 @@ app.use(session({
 }))
 app.use(cookieParser('secret'))
 app.use(express.static(path.join(__dirname, '/public')))
-app.use(methodOverride((req, res) => {
+app.use(methodOverride((req) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     let method = req.body._method
     delete req.body._method
@@ -106,7 +109,7 @@ app.use('/user', require('./routes/user.js'))
 // will print stacktrace
 // should use config file
 if (config.env === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     res.status(err.status || 500)
     res.json({
       message: err.message,
@@ -117,7 +120,7 @@ if (config.env === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   res.status(err.status || 500)
   res.json({
     message: err.message,
@@ -128,4 +131,3 @@ app.use(function (err, req, res, next) {
 app.listen(config.port, function () {
   console.log('Example app listening on port ' + config.port + '!')
 })
-

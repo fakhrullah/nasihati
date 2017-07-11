@@ -18,9 +18,6 @@
   var nextButton = document.getElementById('next')
   var prevButton = document.getElementById('prev')
 
-  var randomButton = document.getElementsByClassName('random')
-
-  var mainContent = document.getElementsByClassName('main-content')
   menuToggle.addEventListener('click', function () {
     // console.log('#menu-toggle clicked')
 
@@ -85,7 +82,6 @@
         var prevQuote = data.text
         var prevQuoteSource = data.source
 
-
         // hide current nasihat quote and it source
         nasihatQuote.style.visibility = 'hidden'
         nasihatQuoteSource.style.visibility = 'hidden'
@@ -101,7 +97,6 @@
           nasihatQuoteSource.style.visibility = 'visible'
           nasihatQuote.dataset.quoteid = dataId
         }, 1000)
-
       })
   })
 })()

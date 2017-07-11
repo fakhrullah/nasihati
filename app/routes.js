@@ -1,8 +1,7 @@
-let express = require('express'),
-    router = express.Router(),
-    mainController = require('./controllers/main.controller')
+let express = require('express')
+let router = express.Router()
+let mainController = require('./controllers/main.controller')
 
-module.exports = router;
+module.exports = router
 
 router.get('/', mainController.indexPage)
-

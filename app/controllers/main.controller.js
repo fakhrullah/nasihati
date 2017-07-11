@@ -1,5 +1,4 @@
 let moment = require('moment')
-let nasihatCol = require('../../nasihat_col')
 
 let Nasihat = require('../models/advices')
 /**
@@ -7,7 +6,7 @@ let Nasihat = require('../models/advices')
  * @type {{printData: printData, saveData: saveData}}
  */
 module.exports = {
-  indexPage: indexPage,
+  indexPage: indexPage
 }
 
 /**
@@ -16,7 +15,7 @@ module.exports = {
  * @param res
  * @param next
  */
-function indexPage(req, res, next) {
+function indexPage (req, res, next) {
   console.log('Status: Showing a quote for today')
 
   let todayId
@@ -27,7 +26,6 @@ function indexPage(req, res, next) {
   let lastQuoteId = req.cookies.lastQuoteId
   let lastDayQuote = req.cookies.lastDayQuote // date when last quote shown
 
-
   if (!lastQuoteId) {
     performFirstSessionSetup(res, todayDate)
   } else {
@@ -35,8 +33,8 @@ function indexPage(req, res, next) {
   }
 
   Nasihat.find({id: todayId})
-    .exec(function(err, data) {
-      if (err) {return next(err)}
+    .exec(function (err, data) {
+      if (err) { return next(err) }
       res.render('homepage', {
         title: 'Nasihat',
         quoteId: todayId,
@@ -47,7 +45,7 @@ function indexPage(req, res, next) {
 /**
  * Locking the user as a first time user
  */
-function performFirstSessionSetup(res, todayDate){
+function performFirstSessionSetup (res, todayDate) {
   // For first time user or first time device
   console.log('1st time user')
   let todayId
@@ -58,7 +56,7 @@ function performFirstSessionSetup(res, todayDate){
   return todayId
 }
 
-function performRepeatedUserTask(res, lastDayQuote, todayDate, lastQuoteId){
+function performRepeatedUserTask (res, lastDayQuote, todayDate, lastQuoteId) {
   // Repeated user
   console.log('Repeated user')
 
@@ -76,7 +74,6 @@ function performRepeatedUserTask(res, lastDayQuote, todayDate, lastQuoteId){
 
     console.log('Repeated user different day')
   }
-
 
   return todayId
 }
