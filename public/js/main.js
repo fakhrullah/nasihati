@@ -47,26 +47,27 @@
     console.log('get nasihat next to ' + currentId + ' id')
     // get next nasihat word
     getJSON('/nasihat/next/' + currentId)
-    .then(function (data) {
-      var dataId = data.id
-      var nextQuote = data.text
-      var nextQuoteSource = data.source
+      .then(function (data) {
+        var dataId = data.id
+        var nextQuote = data.text
+        var nextQuoteSource = data.source
 
-      // hide current nasihat quote and it source
-      nasihatQuote.style.visibility = 'hidden'
-      nasihatQuoteSource.style.visibility = 'hidden'
+        // hide current nasihat quote and it source
+        nasihatQuote.style.visibility = 'hidden'
+        nasihatQuoteSource.style.visibility = 'hidden'
 
-      setTimeout(function setNewNasihatQuote () {
-        // replace current nasihat quote and source with new one
-        nasihatQuote.innerHTML = nextQuote
-        nasihatQuoteSource.innerHTML = nextQuoteSource
-        // show back nasihat quote and source that contains new one
-        nasihatQuote.style.visibility = 'visible'
-        nasihatQuoteSource.style.visibility = 'visible'
+        setTimeout(function setNewNasihatQuote () {
+          // replace current nasihat quote and source with new one
+          nasihatQuote.innerHTML = nextQuote
+          nasihatQuoteSource.innerHTML = nextQuoteSource
 
-        nasihatQuote.dataset.quoteid = dataId
-      }, 1000)
-    })
+          // show back nasihat quote and source that contains new one
+
+          nasihatQuote.style.visibility = 'visible'
+          nasihatQuoteSource.style.visibility = 'visible'
+          nasihatQuote.dataset.quoteid = dataId
+        }, 1000)
+      })
   })
 
   prevButton.addEventListener('click', function () {
@@ -76,26 +77,27 @@
     console.log('get nasihat previous to id ' + currentId)
     // get prev nasihat word
     getJSON('/nasihat/prev/' + currentId)
-    .then(function (data) {
-      var dataId = data.id
-      var prevQuote = data.text
-      var prevQuoteSource = data.source
+      .then(function (data) {
+        var dataId = data.id
+        var prevQuote = data.text
+        var prevQuoteSource = data.source
 
-      // hide current nasihat quote and it source
-      nasihatQuote.style.visibility = 'hidden'
-      nasihatQuoteSource.style.visibility = 'hidden'
+        // hide current nasihat quote and it source
+        nasihatQuote.style.visibility = 'hidden'
+        nasihatQuoteSource.style.visibility = 'hidden'
 
-      setTimeout(function setNewNasihatQuote () {
-        // replace current nasihat quote and source with new one
-        nasihatQuote.innerHTML = prevQuote
-        nasihatQuoteSource.innerHTML = prevQuoteSource
-        // show back nasihat quote and source that contains new one
-        nasihatQuote.style.visibility = 'visible'
-        nasihatQuoteSource.style.visibility = 'visible'
+        setTimeout(function setNewNasihatQuote () {
+          // replace current nasihat quote and source with new one
+          nasihatQuote.innerHTML = prevQuote
+          nasihatQuoteSource.innerHTML = prevQuoteSource
 
-        nasihatQuote.dataset.quoteid = dataId
-      }, 1000)
-    })
+          // show back nasihat quote and source that contains new one
+
+          nasihatQuote.style.visibility = 'visible'
+          nasihatQuoteSource.style.visibility = 'visible'
+          nasihatQuote.dataset.quoteid = dataId
+        }, 1000)
+      })
   })
 })()
 
