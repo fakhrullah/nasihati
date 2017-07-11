@@ -12,6 +12,7 @@
     "method-override": "^2.3.7",
     "moment": "^2.17.1",
     "mongodb": "^2.2.16",
+    "mongoose": "^4.11.1",
     "passport": "^0.3.2",
     "passport-http-header-token": "^1.1.0",
     "passport-local": "^1.0.0",
