@@ -29,7 +29,8 @@
     "gulp-rename": "^1.2.2",
     "postcss-cssnext": "^2.9.0",
     "postcss-nested": "^1.0.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "standard": "^10.0.2"
   },
   "scripts": {
     "start": "node app.js",
