@@ -6,7 +6,7 @@ html
     title= title
 
     script
-        include partials/tracking.js
+      include partials/tracking.js
 
   body
 
@@ -24,12 +24,14 @@ html
       h1.title= title
 
       - var todayId = quoteId
-      p.quote.nasihat#nasihatQuote(data-quoteid=todayId) #{quote}
-      p.source#nasihatQuoteSource= source
+
+      each item in nasihat
+        p.quote.nasihat#nasihatQuote(data-quoteid=todayId) #{item.text}
+        p.source#nasihatQuoteSource= item.source
 
       button#more.more
-       svg.siv.siv-ellipsis(width=32 height=32)
-        use(xlink:href="/icons/ellipsis.svg#ellipsis")
+        svg.siv.siv-ellipsis(width=32 height=32)
+          use(xlink:href="/icons/ellipsis.svg#ellipsis")
 
     nav.nav
       button#menu-toggle
