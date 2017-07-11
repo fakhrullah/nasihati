@@ -1,50 +1,52 @@
 doctype
 html
-  head
-    link(rel="stylesheet" href="/css/main.css")
-    meta(name="viewport" content="width=device-width")
-    title= title
+    head
+        link(rel="stylesheet" href="/css/main.css")
+        meta(name="viewport" content="width=device-width")
+        title= title
 
-    script
-      include partials/tracking.js
+        script
+            include partials/tracking.js
 
-  body
+    body
 
-    section.main-content
+        section.main-content
 
-      header.header
-        button.random
-          svg.siv.siv-random(width=24 height=24)
-            use(xlink:href="/icons/random.svg#random")
+            header.header
+                button.random
+                    svg.siv.siv-random(width=24 height=24)
+                        use(xlink:href="/icons/random.svg#random")
 
-        button.share
-          svg.siv.siv-share(width=24 height=24)
-            use(xlink:href="/icons/share.svg#share")
+                button.share
+                    svg.siv.siv-share(width=24 height=24)
+                        use(xlink:href="/icons/share.svg#share")
 
-      h1.title= title
+            h1.title= title
 
-      - var todayId = quoteId
+            - var todayId = quoteId
 
-      each item in nasihat
-        p.quote.nasihat#nasihatQuote(data-quoteid=todayId) #{item.text}
-        p.source#nasihatQuoteSource= item.source
+            each item in nasihat
+                p.quote.nasihat#nasihatQuote(data-quoteid=todayId) #{item.text}
+                p.source#nasihatQuoteSource= item.source
 
-      button#more.more
-        svg.siv.siv-ellipsis(width=32 height=32)
-          use(xlink:href="/icons/ellipsis.svg#ellipsis")
+            button#more.more
+                svg.siv.siv-ellipsis(width=32 height=32)
+                    use(xlink:href="/icons/ellipsis.svg#ellipsis")
 
-    nav.nav
-      button#menu-toggle
-        svg.siv.siv-bars(width=32 height=32)
-          use(xlink:href="/icons/bars.svg#bars")
-      ul#menu.menu.hidden
-        li #[button#about-toggle.nav-btn ABOUT]
-        li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
+        nav.nav
+            button#menu-toggle
+                svg.siv.siv-bars(width=32 height=32)
+                    use(xlink:href="/icons/bars.svg#bars")
+            ul#menu.menu.hidden
+                li #[button#about-toggle.nav-btn ABOUT]
+                li #[button#nasihat-bot-toggle.nav-btn NASIHAT BOT]
 
-    button.next#next } <!-- &gt;-->
-    button.prev#prev { <!-- &lt; -->
+        button.next#next } <!-- &gt;-->
+        button.prev#prev { <!-- &lt; -->
 
-    include ./modals/about
-    include ./modals/nasihatbot
+        include ./modals/about
+        include ./modals/nasihatbot
 
-    script(src="/js/main.js")
+            script(src="/js/jquery-3.2.1.min.js")
+            script(src="/js/main.js")
+
