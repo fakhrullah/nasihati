@@ -40,7 +40,8 @@
     "lint": "standard",
     "bump": "npm version patch",
     "bump:minor": "npm version minor",
-    "bump:major": "npm version major"
+    "bump:major": "npm version major",
+    "configure": "cp config.sample.js config.js"
   },
   "repository": {
     "type": "git",
