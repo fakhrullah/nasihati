@@ -12,5 +12,5 @@ _paq.push(['enableLinkTracking']);
   _paq.push(['setTrackerUrl', u + 'piwik.php'])
   _paq.push(['setSiteId', '2'])
   var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0]
-  g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s)
+  g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'f-stats.js'; s.parentNode.insertBefore(g, s)
 })()
