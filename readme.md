@@ -1,5 +1,19 @@
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+---
+
+> This is Work in progress (WIP) branch.
+> Why because there are going to be lot of refactor.
+
+### Target before merge to master
+
+1. Menggunakan MVC. Guna controller, model dan mongoose.
+2. Artikel guide step by step untuk other developer. Contribution guide; step by step to start program, step by step to contribute (linting for js, pug and css).
+3. Setiap nasihat ada link masing2 supaya boleh di share di sosial media. Sebenarnya dah ada, cthnya: /nasihat/:id - tapi masih tak digunakan di homepage.
+Idea baru ialah, homepage akan redirect ke page ini daripada guna AJAX.
+4. Form page untuk edit nasihat. Dah ada juga tapi, tak confirm lagi menjadi ke tak, sebab dah lama tinggal. Syarat edit nasihat, sesiapa pun boleh edit, dan setiap edit akan di revisionkan sehingga admin approve. 
+---
+
 # Nasihati
 
 Sebuah web yang memaparkan petikan terjemahan quran dan hadis. 
