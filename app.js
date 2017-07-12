@@ -103,8 +103,7 @@ app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat-updates.js'))
 app.use('/api/v1/nasihat', require('./routes/api/v1/nasihat.js'))
 app.use('/api/v1/user', require('./routes/api/v1/user.js'))
 app.use('/nasihat', require('./routes/nasihat-updates.js'))
-app.use('/nasihat', require('./routes/nasihat.js'))
-app.use('/user', require('./routes/user.js'))
+
 // development error handler
 // will print stacktrace
 // should use config file
