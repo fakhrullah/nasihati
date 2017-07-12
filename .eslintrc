@@ -1,19 +1,26 @@
 {
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true
-        }
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-        "semi": ["error", "never"],
-        "quotes": ["error", "single"],
-        "global-require": ["error"],
-        "one-var": [2, "never"],
-        "no-console": [
-            "error", {
-                "allow": ["warn", "error"] }
-        ]
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
     }
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "global-require": ["error"],
+    "one-var": [2, "never"],
+    "no-var": "error",
+    "no-console": [
+      0, {
+        "allow": ["warn", "error"] }
+    ]
+
+  },
+  "globals": {
+    "console": true,
+    "require": true,
+    "module": true
+  }
 }
