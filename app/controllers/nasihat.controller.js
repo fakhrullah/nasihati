@@ -12,14 +12,14 @@ module.exports = {
 }
 
 // Route: /activity/show
-function indexAdvices (res) {
+function indexAdvices (req, res) {
   console.log('list all resources')
 
   res.status(404).send('None')
 }
 
 // Route: /activity/new
-function newAdvices (res) {
+function newAdvices (req, res) {
   'use strict'
   console.log('show form to create resource')
 
@@ -27,7 +27,7 @@ function newAdvices (res) {
 }
 
 // Route: /activity/create
-function createAdvice (next) {
+function createAdvice (req, next) {
   'use strict'
   console.log('create new resource')
 
@@ -45,7 +45,7 @@ function showAdvice (req, res) {
 }
 
 // Route: /activity/:id/edit
-function editAdvice (res) {
+function editAdvice (req, res) {
   'use strict'
   console.log('form to edit resource')
 
