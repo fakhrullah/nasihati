@@ -9,3 +9,5 @@ config.js
 # Ignore jetbrains webstorm cache
 
 /.idea
+
+.eslintrc
