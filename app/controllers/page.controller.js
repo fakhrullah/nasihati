@@ -21,13 +21,14 @@ module.exports = {
 function nextResource (req, res) {
   'use strict'
   let id = parseInt(req.params['id'])
-  Nasihat.findNextResource(id, (data) => { res.json(data[0]) })
+  // Nasihat.findNextResource(id, (data) => { res.json(data[0]) })
+  Nasihat.findNextResource(id).then((data) => { res.json(data[0]) })
 }
 
 function prevResource (req, res) {
   'use strict'
   let id = parseInt(req.params['id'])
-  Nasihat.findPrevResource(id, (data) => { res.json(data[0]) })
+  Nasihat.findPrevResource(id).then((data) => { res.json(data[0]) })
 }
 
 function editResource (req, res, next) {
