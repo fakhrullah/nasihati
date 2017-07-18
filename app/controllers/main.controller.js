@@ -1,6 +1,9 @@
 let moment = require('moment')
 
 let Nasihat = require('../models/advices')
+
+let Log = require('../../utils/logger')
+
 /**
  * Declaring accessible function for use.
  * @type {{printData: printData, saveData: saveData}}
@@ -16,11 +19,11 @@ module.exports = {
  * @param next
  */
 function indexPage (req, res, next) {
-  console.log('Status: Showing a quote for today')
+  Log.d('Status: Showing a quote for today')
 
   let todayId
   let todayDate = moment().format('YYYY-MM-DD')
-  console.log(todayDate)
+  Log.d(todayDate)
 
   // Show next quote compare to yesterday
   let lastQuoteId = req.cookies.lastQuoteId
@@ -47,7 +50,7 @@ function indexPage (req, res, next) {
  */
 function performFirstSessionSetup (res, todayDate) {
   // For first time user or first time device
-  console.log('1st time user')
+  Log.d('1st time user')
   let todayId
   todayId = 1
   res.cookie('lastQuoteId', 1)
@@ -58,13 +61,13 @@ function performFirstSessionSetup (res, todayDate) {
 
 function performRepeatedUserTask (res, lastDayQuote, todayDate, lastQuoteId) {
   // Repeated user
-  console.log('Repeated user')
+  Log.d('Repeated user')
 
   let todayId
   if (moment(lastDayQuote).isSame(todayDate)) {
     // Repeated user on same day get same quote as last shown
     todayId = parseInt(lastQuoteId)
-    console.log('Repeated user same day')
+    Log.d('Repeated user same day')
   } else {
     // Repeated user different day get to see next quote compared to last shown
     todayId = parseInt(lastQuoteId) + 1
@@ -72,7 +75,7 @@ function performRepeatedUserTask (res, lastDayQuote, todayDate, lastQuoteId) {
     res.cookie('lastQuoteId', todayId)
     res.cookie('lastDayQuote', todayDate)
 
-    console.log('Repeated user different day')
+    Log.d('Repeated user different day')
   }
 
   return todayId

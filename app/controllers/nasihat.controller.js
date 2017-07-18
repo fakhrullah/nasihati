@@ -1,6 +1,8 @@
 /* global module, console */
 /* eslint no-console: 0 */
 
+let Log = require('../../utils/logger')
+
 module.exports = {
   indexAdvices: indexAdvices,
   newAdvices: newAdvices,
@@ -13,7 +15,7 @@ module.exports = {
 
 // Route: /activity/show
 function indexAdvices (req, res) {
-  console.log('list all resources')
+  Log.i('list all resources')
 
   res.status(404).send('None')
 }
@@ -21,7 +23,7 @@ function indexAdvices (req, res) {
 // Route: /activity/new
 function newAdvices (req, res) {
   'use strict'
-  console.log('show form to create resource')
+  Log.i('show form to create resource')
 
   res.status(404).send('None')
 }
@@ -29,7 +31,7 @@ function newAdvices (req, res) {
 // Route: /activity/create
 function createAdvice (req, next) {
   'use strict'
-  console.log('create new resource')
+  Log.i('create new resource')
 
   // handle data then redirect to show/edit page
   next(404)
@@ -39,7 +41,7 @@ function createAdvice (req, next) {
 function showAdvice (req, res) {
   'use strict'
   let id = req.params['id']
-  console.log('show resource at id ' + id)
+  Log.i('show resource at id ' + id)
 
   res.status(404).send('None')
 }
@@ -47,7 +49,7 @@ function showAdvice (req, res) {
 // Route: /activity/:id/edit
 function editAdvice (req, res) {
   'use strict'
-  console.log('form to edit resource')
+  Log.i('form to edit resource')
 
   res.status(404).send('None')
 }
@@ -57,7 +59,7 @@ function updateAdvice (req, next) {
   'use strict'
 
   let id = req.params['id']
-  console.log('update resource at id ' + id)
+  Log.i('update resource at id ' + id)
 
   // handle data then redirect to show/edit page
   next(404)
@@ -66,7 +68,7 @@ function updateAdvice (req, next) {
 // Route: /activity/:id/delete
 function deleteAdvice (req, next) {
   let id = req.params['id']
-  console.log('delete resource at id ' + id)
+  Log.i('delete resource at id ' + id)
 
   // handle data then redirect to show all resource
   next(404)

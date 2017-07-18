@@ -16,6 +16,7 @@ let MongoStore = require('connect-mongo')(session)
 let methodOverride = require('method-override')
 let path = require('path')
 //  _ = require('lodash')
+let Log = require('./utils/logger')
 
 /**
  * HTTP Logic handler
@@ -33,10 +34,10 @@ passport.use(new HttpHeaderTokenStrategy({},
     userCollection.getUserByApiKey(apikey)
       .then(user => {
         if (apikey === user.apikey) {
-          console.log('apikey valid')
+          Log.d('apikey valid')
           return cb(null, user)
         } else {
-          console.log('apikey not valid')
+          Log.e('apikey not valid')
           throw new Error('Api Key not valid!')
         }
       })
@@ -128,5 +129,5 @@ app.use(function (err, req, res) {
 })
 
 app.listen(process.env.APP_PORT, function () {
-  console.log('Example app listening on port ' + process.env.APP_PORT + '!')
+  Log.i('Example app listening on port ' + process.env.APP_PORT + '!')
 })
