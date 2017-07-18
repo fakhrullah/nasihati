@@ -4,6 +4,7 @@ npm-debug.log
 .sublime-gulp.cache
 public/font-awesome-4.6.3/
 config.js
+.env
 
 
 # Ignore jetbrains webstorm cache

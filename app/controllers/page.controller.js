@@ -1,11 +1,9 @@
 let request = require('request')
 let svgCaptcha = require('svg-captcha')
-let config = require('../../config.js')
 
-let baseUrl = config.env === 'development' ? 'http://localhost:3000' : 'https://nasihat.fajarhac.com'
-let apiUrlNasihatResource = baseUrl + '/api/v1/nasihat/'
+let apiUrlNasihatResource = process.env.API_URL
 
-let authorizationToken = {Authorization: 'Token ' + config.apikey}
+let authorizationToken = {Authorization: 'Token ' + process.env.API_KEY}
 
 // Init model
 let Nasihat = require('../models/advices')
@@ -35,7 +33,6 @@ function editResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
   console.log(`show edit form for nasihat on id ${id}`)
-  // TODO use config.baseUrl
   let apiUrl = `${apiUrlNasihatResource}${id}`
 
   let options = {url: apiUrl, headers: authorizationToken}
@@ -105,7 +102,6 @@ function showResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
   console.log(`show nasihat at id ${id}`)
-  // TODO use config.baseUrl
   let apiUrl = `${apiUrlNasihatResource}${id}`
   // TODO get lastId from DB
   // better to let API handle this by sending next url link
