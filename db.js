@@ -1,8 +1,9 @@
 var mongoose = require('mongoose')
+let Log = require('./utils/logger')
 
 mongoose.connect('mongodb://localhost/nasihat',
     function () {
-      console.log('mongodb connected')
+      Log.d('mongodb connected')
     })
 
 module.exports = mongoose

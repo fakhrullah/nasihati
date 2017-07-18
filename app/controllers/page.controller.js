@@ -32,20 +32,25 @@ function prevResource (req, res) {
 function editResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
+<<<<<<< HEAD
   console.log(`show edit form for nasihat on id ${id}`)
+=======
+  Log.i(`show edit form for nasihat on id ${id}`)
+  // TODO use config.baseUrl
+>>>>>>> 1aa902e... Fix to use winstonjs logger
   let apiUrl = `${apiUrlNasihatResource}${id}`
 
   let options = {url: apiUrl, headers: authorizationToken}
 
   request.get(options, (err, response, body) => {
     if (err) {
-      console.log(err)
+      Log.e(err)
       next(err)
       return
     }
 
     let flashError = req.session.flash || undefined
-    console.log('flashError: ' + flashError)
+    Log.d('flashError: ' + flashError)
     req.session.flash = undefined
 
     let nasihat = JSON.parse(body)
@@ -65,21 +70,21 @@ function editResource (req, res, next) {
 function updateResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
-  console.log('update nasihat at id ' + id)
+  Log.i('update nasihat at id ' + id)
   let dataSubmitByUser = req.body
-  console.log('data submit by user -------')
-  console.log(dataSubmitByUser)
-  console.log('----------')
+  Log.d('data submit by user -------')
+  Log.d(dataSubmitByUser)
+  Log.d('----------')
 
   let apiUrl = `${apiUrlNasihatResource}${id}`
 
   // validate captcha
-  console.log('req.body.captcha : ' + req.body.captcha)
-  console.log('req.session.captcha : ' + req.session.captcha)
+  Log.d('req.body.captcha : ' + req.body.captcha)
+  Log.d('req.session.captcha : ' + req.session.captcha)
 
   if (req.body.captcha !== req.session.captcha) {
     let err = Error('Captcha not valid')
-    console.log(err)
+    Log.e(err)
     req.session.flash = 'Captcha not valid'
     res.redirect('/nasihat/' + id + '/edit')
     return
@@ -90,7 +95,7 @@ function updateResource (req, res, next) {
 
   request.put(options, (err, response, body) => {
     if (err) {
-      console.log(err)
+      Log.e(err)
       return next(err)
     }
 
@@ -101,7 +106,12 @@ function updateResource (req, res, next) {
 function showResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
+<<<<<<< HEAD
   console.log(`show nasihat at id ${id}`)
+=======
+  Log.i(`show nasihat at id ${id}`)
+  // TODO use config.baseUrl
+>>>>>>> 1aa902e... Fix to use winstonjs logger
   let apiUrl = `${apiUrlNasihatResource}${id}`
   // TODO get lastId from DB
   // better to let API handle this by sending next url link
@@ -112,11 +122,11 @@ function showResource (req, res, next) {
 
   request.get(options, (err, response, body) => {
     if (err) {
-      console.log(err)
+      Log.e(err)
       next(err)
       return
     }
-    console.log(body)
+    Log.d(body)
     let nasihat = JSON.parse(body)
 
     // TODO : think better way. May be API should give next and prev link

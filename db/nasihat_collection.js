@@ -4,6 +4,7 @@ var MongoClient = require('mongodb').MongoClient
 // Connection URL
 var url = 'mongodb://localhost:27017/nasihat'
 var collectionName = 'nasihats'
+let Log = require('../utils/logger')
 
 // Read data
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
    */
   getNasihatById (id) {
     return new Promise((resolve, reject) => {
+      Log.d('getNasihatById')
       connectToDB(url)
         .then((db) => {
           db.collection(collectionName)
@@ -25,7 +27,7 @@ module.exports = {
               db.close()
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => Log.e(err))
     })
   },
 
@@ -47,7 +49,7 @@ module.exports = {
                 db.close()
               })
         })
-        .catch(err => console.log(err))
+        .catch(err => Log.e(err))
     })
   },
 
@@ -68,7 +70,7 @@ module.exports = {
                 resolve(result)
               })
         })
-        .catch(err => console.log(err))
+        .catch(err => Log.e(err))
     })
   },
 
@@ -108,7 +110,7 @@ module.exports = {
               db.close()
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => Log.e(err))
     })
   },
 

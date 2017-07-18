@@ -9,6 +9,8 @@ var nasihatCollection = require('../../../db/nasihat_collection.js')
 var passport = require('passport')
 var MongodbObjectID = require('mongodb').ObjectID
 
+let Log = require('../../../utils/logger')
+
 // -------- middlewares -----
 //
 // TODO add authetication admin for create (POST), edit with limitation (PUT), delete(DELETE)
@@ -21,7 +23,7 @@ router.get('/:id', passport.authenticate('http-header-token', {session: false}))
 router.get('/:id', function (req, res, next) {
   var id = parseInt(req.params['id'])
 
-  console.log('API: show nasihat at id ' + id)
+  Log.d('API: show nasihat at id ' + id)
 
   nasihatCollection.getNasihatById(id)
     .then(nasihat => res.json(nasihat))
@@ -32,8 +34,8 @@ router.put('/:id', passport.authenticate('http-header-token', {session: false}))
 router.put('/:id', function (req, res, next) {
   var id = parseInt(req.params['id'])
 
-  console.log('update nasihat at id ' + id)
-  console.log('with data: ' + JSON.stringify(req.body))
+  Log.d('update nasihat at id ' + id)
+  Log.d('with data: ' + JSON.stringify(req.body))
 
   // Only add update to revision
   var nasihatUpdate = {}
@@ -46,37 +48,37 @@ router.put('/:id', function (req, res, next) {
   // should use nasihatModel as middleware before the database
   nasihatCollection.updateNasihatById(id, updateData)
     .then(data => {
-      console.log('updated')
+      Log.d('updated')
       // res.redirect('/api/v1/nasihat/' + id)
       res.json(data)
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.e(err))
 })
 
 router.post('', passport.authenticate('http-header-token', {session: false}))
 router.post('/', function (req, res) {
-  console.log('create new nasihat')
+  Log.d('create new nasihat')
 
-  // console.log(req.body)
+  // Log.d(req.body)
   nasihatCollection.createNasihat(req.body)
     .then(result => {
-      console.log(result.result)
+      Log.d(result.result)
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.d(err))
 })
 
 router.delete('/:id', passport.authenticate('http-header-token', {session: false}))
 router.delete('/:id', function (req, res) {
   var id = parseInt(req.params['id'])
 
-  console.log('delete nasihat at id ' + id)
+  Log.d('delete nasihat at id ' + id)
 
   nasihatCollection.deleteNasihat(id)
     .then(result => {
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.e(err))
 })
 
 // TODO remove next and prev
@@ -88,13 +90,13 @@ router.delete('/:id', function (req, res) {
 router.get('/:id/next', function (req, res) {
   var id = parseInt(req.params['id'])
 
-  console.log('get next nasihat for nasihat at id ' + id)
+  Log.d('get next nasihat for nasihat at id ' + id)
 
   nasihatCollection.getNextNasihatForId(id)
     .then(result => {
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.e(err))
 })
 
 /**
@@ -103,13 +105,13 @@ router.get('/:id/next', function (req, res) {
 router.get('/:id/prev', function (req, res) {
   var id = parseInt(req.params['id'])
 
-  console.log('get previous nasihat for nasihat at id ' + id)
+  Log.d('get previous nasihat for nasihat at id ' + id)
 
   nasihatCollection.getPrevNasihatForId(id)
     .then(result => {
       res.json(result)
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.e(err))
 })
 
 module.exports = router
