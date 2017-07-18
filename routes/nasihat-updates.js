@@ -6,11 +6,9 @@
 var express = require('express')
 var router = express.Router()
 var request = require('request')
-var config = require('../config.js')
 
-var baseUrl = config.env === 'development' ? 'http://localhost:' + config.port : 'https://nasihat.fajarhac.com'
-var apiUrlNasihatResource = `${baseUrl}/api/v1/nasihat`
-var authorizationToken = {Authorization: 'Token ' + config.apikey}
+var apiUrlNasihatResource = process.env.API_URL + `/nasihat`
+var authorizationToken = {Authorization: 'Token ' + process.env.API_KEY}
 
 // -------- middlewares -----
 // router.use('/', (req, res, next) => {})

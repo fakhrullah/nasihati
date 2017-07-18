@@ -5,6 +5,8 @@
 /* global require, __dirname, console */
 /* eslint no-console: 0 */
 
+require('dotenv').config()
+
 let express = require('express')
 let app = express()
 let bodyParser = require('body-parser')
@@ -13,8 +15,7 @@ let session = require('express-session')
 let MongoStore = require('connect-mongo')(session)
 let methodOverride = require('method-override')
 let path = require('path')
-//  _ = require('lodash'),
-let config = require('./config.js')
+//  _ = require('lodash')
 
 /**
  * HTTP Logic handler
@@ -65,7 +66,7 @@ passport.deserializeUser((userId, cb) => {
  */
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// TODO add secret for session and cookie, use same secret from config
+// TODO add secret for session and cookie, use same secret from .env
 app.use(session({
   store: new MongoStore({
     url: 'mongodb://localhost:27017/nasihat'
@@ -106,8 +107,7 @@ app.use('/nasihat', require('./routes/nasihat-updates.js'))
 
 // development error handler
 // will print stacktrace
-// should use config file
-if (config.env === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(function (err, req, res) {
     res.status(err.status || 500)
     res.json({
@@ -127,6 +127,6 @@ app.use(function (err, req, res) {
   })
 })
 
-app.listen(config.port, function () {
-  console.log('Example app listening on port ' + config.port + '!')
+app.listen(process.env.APP_PORT, function () {
+  console.log('Example app listening on port ' + process.env.APP_PORT + '!')
 })
