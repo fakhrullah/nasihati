@@ -7,6 +7,7 @@ let authorizationToken = {Authorization: 'Token ' + process.env.API_KEY}
 
 // Init model
 let Nasihat = require('../models/advices')
+let Log = require('../../utils/logger')
 
 module.exports = {
   nextResource: nextResource,
@@ -32,12 +33,8 @@ function prevResource (req, res) {
 function editResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
-<<<<<<< HEAD
-  console.log(`show edit form for nasihat on id ${id}`)
-=======
   Log.i(`show edit form for nasihat on id ${id}`)
   // TODO use config.baseUrl
->>>>>>> 1aa902e... Fix to use winstonjs logger
   let apiUrl = `${apiUrlNasihatResource}${id}`
 
   let options = {url: apiUrl, headers: authorizationToken}
@@ -106,12 +103,8 @@ function updateResource (req, res, next) {
 function showResource (req, res, next) {
   'use strict'
   let id = parseInt(req.params.id)
-<<<<<<< HEAD
-  console.log(`show nasihat at id ${id}`)
-=======
   Log.i(`show nasihat at id ${id}`)
   // TODO use config.baseUrl
->>>>>>> 1aa902e... Fix to use winstonjs logger
   let apiUrl = `${apiUrlNasihatResource}${id}`
   // TODO get lastId from DB
   // better to let API handle this by sending next url link
