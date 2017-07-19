@@ -1,6 +1,6 @@
 {
   "name": "nasihati",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A web show malay translated quote from quran and hadith sahih.",
   "main": "index.js",
   "dependencies": {
