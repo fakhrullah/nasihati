@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "6"
+addons:
+  apt:
+    sources:
+    - mongodb-org-tools
+    - mongodb-3.0-precise
+  packages:
+    - mongodb-org-server
+    - mongodb-org-shell
+services:
+  - mongodb
+env:
+  - NODE_ENV=test
