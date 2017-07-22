@@ -6,11 +6,11 @@
 var express = require('express')
 var router = express.Router()
 var request = require('request')
-var config = require('../config.js')
 
-var baseUrl = config.env === 'development' ? 'http://localhost:' + config.port : 'https://nasihat.fajarhac.com'
-var apiUrlNasihatResource = `${baseUrl}/api/v1/nasihat`
-var authorizationToken = {Authorization: 'Token ' + config.apikey}
+var apiUrlNasihatResource = process.env.API_URL + `/nasihat`
+var authorizationToken = {Authorization: 'Token ' + process.env.API_KEY}
+
+let Log = require('../utils/logger')
 
 // -------- middlewares -----
 // router.use('/', (req, res, next) => {})
@@ -29,7 +29,7 @@ var authorizationToken = {Authorization: 'Token ' + config.apikey}
 router.get('/:nasihatId/revisions', (req, res) => {
   var nasihatId = parseInt(req.params.nasihatId)
 
-  console.log('list all nasihat#' + nasihatId + ' revisions')
+  Log.d('list all nasihat#' + nasihatId + ' revisions')
 
   var apiUrl = `${apiUrlNasihatResource}/${nasihatId}/updates`
   var options = {url: apiUrl, headers: authorizationToken}
@@ -37,7 +37,7 @@ router.get('/:nasihatId/revisions', (req, res) => {
   request.get(options,
     (err, httpRes, body) => {
       if (err) {
-        console.log(err)
+        Log.e(err)
         req.session.flash = err.message
         res.redirect(nasihatId + '/edit')
         return
@@ -55,10 +55,10 @@ router.get('/:nasihatId/revisions', (req, res) => {
 router.put('/:nasihatId/revisions/:id', function (req, res) {
   var nasihatId = parseInt(req.params.nasihatId)
   var revisionId = req.params.id
-  console.log('update nasihat#' + nasihatId + ' revision#[ ' + revisionId + ' ]')
+  Log.d('update nasihat#' + nasihatId + ' revision#[ ' + revisionId + ' ]')
 
   var apiUrl = `${apiUrlNasihatResource}/${nasihatId}/updates/${revisionId}`
-  console.log(apiUrl)
+  Log.d(apiUrl)
   var options = {url: apiUrl, headers: authorizationToken, form: req.body}
 
   request.put(options,
@@ -73,7 +73,7 @@ router.put('/:nasihatId/revisions/:id', function (req, res) {
       }
 
       if (err) {
-        console.log(err)
+        Log.e(err)
         req.session.flash = err.message
         // res.redirect(nasihatId + '/edit')
         resBody.error = err.message
@@ -95,7 +95,7 @@ router.delete('/:nasihatId/revisions/:id', function (req, res) {
   var nasihatId = req.params.nasihatId
   var revisionId = req.params.id
 
-  console.log('delete nasihat#' + nasihatId + ' revision#' + revisionId)
+  Log.d('delete nasihat#' + nasihatId + ' revision#' + revisionId)
 
   var apiUrl = `${apiUrlNasihatResource}/${nasihatId}/updates/${revisionId}`
   var options = {url: apiUrl, headers: authorizationToken, form: req.body}
@@ -106,7 +106,7 @@ router.delete('/:nasihatId/revisions/:id', function (req, res) {
       return
     }
     if (httpRes.statusCode !== 200) {
-      console.log(httpRes.statusCode)
+      Log.d(httpRes.statusCode)
       res.status(httpRes.statusCode).send(body)
       return
     }

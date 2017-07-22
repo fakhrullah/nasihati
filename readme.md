@@ -44,13 +44,13 @@ Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya ak
 	npm install
 	```
 
-3. Sediakan tetapan fail `config.js` untuk _run_ di pc anda. Tetapan ini penting untuk mengelakkan web ni run pada port yang sama.
+3. Sediakan tetapan fail `.env` untuk _run_ di pc anda. Tetapan ini penting untuk mengelakkan web ni run pada port yang sama.
 
 	```
-	cp config.sample.js config.js
+	cp .env.example .env
 	```
 
-	Kemudian sunting `config.js` ikut kesesuaian sendiri.
+	Kemudian sunting `.env` ikut kesesuaian sendiri.
 
 4. Sediakan data asas untuk MongoDB. Fail `nasihat.json` ada dalam root projek direktori. Kalau tak de, `git pull` yang terbaru.
 

@@ -5,6 +5,8 @@ var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/nasihat'
 var collectionName = 'user'
 
+let Log = require('../utils/logger')
+
 // Read data
 module.exports = {
 
@@ -25,7 +27,7 @@ module.exports = {
               db.close()
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => Log.e(err))
     })
   },
 

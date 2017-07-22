@@ -9,6 +9,8 @@ var userColl = require('../../../db/user_collection.js')
 
 var passport = require('passport')
 
+let Log = require('../../../utils/logger')
+
 // -------- middlewares -----
 router.use('', passport.authenticate('http-header-token', {session: false}))
 
@@ -20,7 +22,7 @@ router.use('', passport.authenticate('http-header-token', {session: false}))
  * GET /
  */
 router.get('', (req, res) => {
-  console.log('list all resources')
+  Log.d('list all resources')
 
   res.json({status: 'Not implement yet'})
 })
@@ -31,7 +33,7 @@ router.get('', (req, res) => {
  * POST /
  */
 router.post('/', function (req, res) {
-  console.log('create new resource')
+  Log.d('create new resource')
 
   // handle data then redirect to show/edit page
   res.json({status: 'Not implement yet'})
@@ -45,18 +47,18 @@ router.post('/', function (req, res) {
 router.get('/:id', function (req, res) {
   var id = parseInt(req.params.id)
 
-  console.log('show user at id ' + id)
+  Log.d('show user at id ' + id)
 
   userColl.getUserById(id)
     .then(user => {
-      console.log(JSON.stringify(user))
+      Log.d(JSON.stringify(user))
 
       res.json({
         status: 'success',
         user: user
       })
     })
-    .catch(err => console.log(err))
+    .catch(err => Log.e(err))
 })
 
 /**
@@ -66,7 +68,7 @@ router.get('/:id', function (req, res) {
  */
 router.put('/:id', function (req, res) {
   var id = req.params['id']
-  console.log('update resource at id ' + id)
+  Log.d('update resource at id ' + id)
 
   // handle data then redirect to show/edit page
 
@@ -80,7 +82,7 @@ router.put('/:id', function (req, res) {
  */
 router.delete('/:id', function (req, res) {
   var id = req.params['id']
-  console.log('delete resource at id ' + id)
+  Log.d('delete resource at id ' + id)
 
   // handle data then redirect to show all resource
 

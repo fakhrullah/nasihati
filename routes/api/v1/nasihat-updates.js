@@ -11,15 +11,17 @@ var passport = require('passport')
 
 var ObjectID = require('mongodb').ObjectID
 
+let Log = require('../../../utils/logger')
+
 router.use('/:nasihatId/updates', (req, res, next) => {
   passport.authenticate('http-header-token', (err, user, info) => {
     if (err) {
-      console.log(err)
+      Log.e(err)
       res.json({status: 'API token not valid', msg: err.message})
       return
     }
     if (!user) {
-      console.log(user)
+      Log.d(user)
       res.json({status: 'failed', msg: 'API token not found'})
       return
     }
@@ -28,7 +30,7 @@ router.use('/:nasihatId/updates', (req, res, next) => {
 })
 
 router.get('/:nasihatId/updates', (req, res, next) => {
-  console.log('GET nasihat#' + req.params.nasihatId + ' revisions')
+  Log.d('GET nasihat#' + req.params.nasihatId + ' revisions')
 
   nasihatCollection.getNasihatById(parseInt(req.params.nasihatId))
     .then(nasihat => {
@@ -43,10 +45,10 @@ router.get('/:nasihatId/updates', (req, res, next) => {
 // approve
 router.put('/:nasihatId/updates/:id', passport.authenticate('local', {session: false}))
 router.put('/:nasihatId/updates/:id', (req, res, next) => {
-  console.log('API update nasihat with revision ' + req.params.id)
+  Log.d('API update nasihat with revision ' + req.params.id)
 
   var status = req.body.status
-  console.log(status)
+  Log.d(status)
 
   if (status !== 'approve') {
     res.status(404).json({
@@ -79,7 +81,7 @@ router.put('/:nasihatId/updates/:id', (req, res, next) => {
           status: 'success',
           msg: 'Nasihat#' + nasihatId + ' is updated.'
         })
-        console.log('success updated')
+        Log.d('success updated')
       } else {
         var error = new Error('Nasihat is not update.')
         error.result = updated
@@ -97,7 +99,7 @@ router.delete('/:nasihatId/updates/:id', passport.authenticate('local', {session
 router.delete('/:nasihatId/updates/:id', (req, res, next) => {
   var nasihatId = parseInt(req.params.nasihatId)
   var nasihatUpdatesRevisionId = req.params.id
-  console.log('nasihat#' + nasihatId + ' to revision ' + nasihatUpdatesRevisionId)
+  Log.d('nasihat#' + nasihatId + ' to revision ' + nasihatUpdatesRevisionId)
 
   var queryToDeleteRevision = {
     $pull: {updates: {_id: new ObjectID(nasihatUpdatesRevisionId)}}
@@ -105,7 +107,7 @@ router.delete('/:nasihatId/updates/:id', (req, res, next) => {
 
   nasihatCollection.updateNasihatById(nasihatId, queryToDeleteRevision)
     .then(result => {
-      // console.log(result)
+      // Log.d(result)
 
       if (result.result.ok === 1 && result.result.nModified === 1) {
         res.json({
@@ -114,7 +116,7 @@ router.delete('/:nasihatId/updates/:id', (req, res, next) => {
           result: result
         })
 
-        console.log('success updated')
+        Log.d('success updated')
       } else {
         var error = new Error('Nasihat is not update.')
         error.result = result

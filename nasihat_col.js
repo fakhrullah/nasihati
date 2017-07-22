@@ -4,6 +4,8 @@ var ObjectId = require('mongodb').ObjectId
 // Connection URL
 var url = 'mongodb://localhost:27017/nasihat'
 
+let Log = require('../utils/logger')
+
 // Read data
 module.exports = {
 
@@ -60,10 +62,10 @@ module.exports = {
       // Determined type of id in used. Mongo default _id or increment id
       var lookingId
       if (!ObjectId.isValid(id)) {
-        // console.log('~~~~~~~~~~~~~~ use id : the increment on');
+        // Log.d('~~~~~~~~~~~~~~ use id : the increment on');
         lookingId = {id: parseInt(id)}
       } else {
-        // console.log('~~~~~~~~~~~~~~ use ObjectId')
+        // Log.d('~~~~~~~~~~~~~~ use ObjectId')
         lookingId = {_id: ObjectId(id)}
       }
 
@@ -80,13 +82,13 @@ module.exports = {
   getNextNasihatForId: function (id, callback) {
     MongoClient.connect(url, function (err, db) {
       if (err) {
-        console.log('ERROR: ' + err.message)
+        Log.e('ERROR: ' + err.message)
         return callback(err)
       }
 
       var col = db.collection('nasihats')
 
-      console.log('find nasihat next to ' + id)
+      Log.d('find nasihat next to ' + id)
 
       col.find({ id: {$gt: id} }).limit(1).toArray(function (err, data) {
         if (err) {
@@ -106,13 +108,13 @@ module.exports = {
   getPrevNasihatForId: function (id, callback) {
     MongoClient.connect(url, function (err, db) {
       if (err) {
-        console.log('ERROR: ' + err.message)
+        Log.e('ERROR: ' + err.message)
         return callback(err)
       }
 
       var col = db.collection('nasihats')
 
-      console.log('find nasihat next to ' + id)
+      Log.d('find nasihat next to ' + id)
 
       col.find({ id: {$lt: id} }).sort({id: -1}).limit(1).toArray(function (err, data) {
         if (err) {
