@@ -13,3 +13,5 @@ services:
   - mongodb
 env:
   - NODE_ENV=test
+before_install:
+  - npm i -g mocha
