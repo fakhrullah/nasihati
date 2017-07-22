@@ -42,7 +42,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --debug app.js",
-    "test": "mocha",
+    "test": "./node_modules/.bin/mocha",
     "lint": "standard",
     "bump": "npm version patch",
     "bump:minor": "npm version minor",
