@@ -1,5 +1,7 @@
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+*Looking for sponsor for server about RM 500 per year*
+
 # Nasihati
 
 Sebuah web yang memaparkan petikan terjemahan quran dan hadis. 
