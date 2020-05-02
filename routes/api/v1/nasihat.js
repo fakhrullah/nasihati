@@ -23,7 +23,7 @@ router.get('/:id', function (req, res, next) {
 
   console.log('API: show nasihat at id ' + id)
 
-  nasihatCollection.getNasihatById(id)
+  nasihatCollection.getNasihatById(id, {db: req.app.locals.db})
     .then(nasihat => res.json(nasihat))
 })
 

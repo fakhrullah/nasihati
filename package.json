@@ -33,7 +33,6 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --debug app.js",
-    "test": "echo \"test\" && exit 1",
     "lint": "standard",
     "bump": "npm version patch",
     "bump:minor": "npm version minor",

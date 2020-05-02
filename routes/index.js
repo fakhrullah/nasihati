@@ -4,7 +4,7 @@
 
 var express = require('express')
 var router = express.Router()
-var nasihatCol = require('../nasihat_col.js')
+var nasihatCol = require('../db/nasihat_collection')
 var moment = require('moment')
 
 /**
@@ -52,17 +52,19 @@ router.get('/', function (req, res) {
   console.log('today quote id = ' + todayId)
 
   // get quote from database
-  nasihatCol.getNasihatById(todayId, function (err, nasihat) {
-    // TODO if err to next error page
-    if (err) console.log('ERROR: ' + err.message)
-
-    // render page
-    res.render('homepage', {
-      title: 'Nasihat',
-      quoteId: todayId,
-      quote: nasihat.text,
-      source: nasihat.source
+  nasihatCol.getNasihatById(todayId, {db: req.app.locals.db})
+    .then((nasihat) => {
+      if (!nasihat) throw new Error('Not found data')
+      // render page
+      res.render('homepage', {
+        title: 'Nasihat',
+        quoteId: todayId,
+        quote: nasihat.text,
+        source: nasihat.source
+      })
     })
+  .catch(err => {
+    res.status(404).send(err.message)
   })
 })
 

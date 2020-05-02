@@ -17,6 +17,13 @@ module.exports = {
   /**
    * Database
    */
+  db_host: 'localhost:27017',
+  db_name: 'nasihat',
+  db_user: '',
+  db_pass: '',
+  db_url: function () {
+    return `mongodb://${this.db_host}/${this.db_name}`
+  }
 
   /**
    * Email
@@ -29,5 +36,5 @@ module.exports = {
    *
    * If you want http://nasihat.fajarhac.com api key, please contact me.
    */
-  apikey: 'secret' //
+  apikey: 'Pj209tsl7rxg0efC52yE8' //
 }

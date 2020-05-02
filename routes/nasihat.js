@@ -5,8 +5,7 @@
 
 var express = require('express')
 var router = express.Router()
-var nasihatCol = require('../nasihat_col.js')
-// var nasihatCollection = require('../db/nasihat_collection.js')
+var nasihatCollection = require('../db/nasihat_collection.js')
 var request = require('request')
 var svgCaptcha = require('svg-captcha')
 var config = require('../config.js')
@@ -24,13 +23,14 @@ router.get('/next/:id', function (req, res) {
 
   console.log('get next nasihat for id ' + id)
 
-  nasihatCol.getNextNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // TODO: fix if last element AND no more next
-
+  nasihatCollection.getNextNasihatForId(id, {db: req.app.locals.db })
+  .then(data => {
     console.log(data)
     res.json(data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err)
   })
 })
 
@@ -42,13 +42,14 @@ router.get('/prev/:id', function (req, res) {
 
   console.log('get prev nasihat for id ' + id)
 
-  nasihatCol.getPrevNasihatForId(id, function (err, data) {
-    if (err) throw err
-
-    // if last element AND no more next
-
+  nasihatCollection.getPrevNasihatForId(id, {db: req.app.locals.db })
+  .then(data => {
     console.log(data)
     res.json(data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err)
   })
 })
 

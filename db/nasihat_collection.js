@@ -1,8 +1,11 @@
 var MongoClient = require('mongodb').MongoClient
 // var ObjectId = require('mongodb').ObjectId
+const config = require('../config')
+
+const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true })
 
 // Connection URL
-var url = 'mongodb://localhost:27017/nasihat'
+var url = config.db_url()
 var collectionName = 'nasihats'
 
 // Read data
@@ -11,21 +14,19 @@ module.exports = {
   /**
    * Get a nasihat by id
    */
-  getNasihatById (id) {
+  getNasihatById (id, {db}) {
     return new Promise((resolve, reject) => {
-      connectToDB(url)
-        .then((db) => {
-          db.collection(collectionName)
-            .find({id: id})
-            .limit(1)
-            .toArray(function (err, quote) {
-              if (err) reject(err)
+      db
+        .collection(collectionName)
+        .find({id: id})
+        .limit(1)
+        .toArray(function (err, quote) {
+          if (err) reject(err)
 
-              resolve(quote[0])
-              db.close()
-            })
+          resolve(quote[0])
+          // db.close()
         })
-        .catch(err => console.log(err))
+        // .catch(err => console.log(err))
     })
   },
 
@@ -94,52 +95,44 @@ module.exports = {
   /**
    * get next nasihat for given id
    */
-  getNextNasihatForId (id) {
+  getNextNasihatForId (id, {db}) {
     return new Promise((resolve, reject) => {
-      connectToDB(url)
-        .then(db => {
-          db.collection(collectionName)
-            .find({id: {$gt: id}})
-            .limit(1)
-            .toArray((err, result) => {
-              if (err) reject(err)
+      db.collection(collectionName)
+        .find({id: {$gt: id}})
+        .limit(1)
+        .toArray((err, result) => {
+          if (err) reject(err)
 
-              resolve(result[0])
-              db.close()
-            })
+          resolve(result[0])
         })
-        .catch(err => console.log(err))
     })
   },
 
   /**
    * get previous nasihat for given id
    */
-  getPrevNasihatForId (id) {
+  getPrevNasihatForId (id, {db}) {
     return new Promise((resolve, reject) => {
-      connectToDB(url)
-        .then(db => {
-          db.collection(collectionName)
-            .find({id: {$lt: id}})
-            .sort({id: -1})
-            .limit(1)
-            .toArray((err, result) => {
-              if (err) reject(err)
-
-              resolve(result)
-              db.close()
-            })
+      db.collection(collectionName)
+        .find({id: {$lt: id}})
+        .sort({id: -1})
+        .limit(1)
+        .toArray((err, result) => {
+          if (err) reject(err)
+          resolve(result[0])
         })
     })
   }
 }
 
+
 function connectToDB (url) {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(url, function (err, db) {
+    client.connect(err => {
       if (err) reject(err)
 
-      resolve(db)
+      resolve(client.db("test"))
     })
+    .catch(console.log)
   })
 }
