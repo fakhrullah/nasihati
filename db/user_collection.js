@@ -1,9 +1,13 @@
 var MongoClient = require('mongodb').MongoClient
 // var ObjectId = require('mongodb').ObjectId
+const config = require('../config')
 
 // Connection URL
-var url = 'mongodb://localhost:27017/nasihat'
+var url = config.db_url()
 var collectionName = 'user'
+console.log(url)
+
+const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true })
 
 // Read data
 module.exports = {
@@ -92,10 +96,11 @@ module.exports = {
 
 function connectToDB (url) {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(url, function (err, db) {
+    client.connect(err => {
       if (err) reject(err)
 
-      resolve(db)
+      resolve(client.db("test"))
     })
+    .catch(console.log)
   })
 }

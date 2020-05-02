@@ -65,5 +65,5 @@ Untuk menggalakkan orang-orang baru dan yang belum selesa dengan github, saya ak
 
 ## License
 
-Copyright 2016 [Fakhrullah Padzil](https://blog.fajarhac.com). Licensed under the MIT License.
+Copyright 2016 [Fakhrullah Padzil](https://fajarhac.com). Licensed under the MIT License.
 

@@ -14,6 +14,10 @@ var userCollection = require('./db/user_collection.js')
 var passport = require('passport')
 var HttpHeaderTokenStrategy = require('passport-http-header-token').Strategy
 var LocalStrategy = require('passport-local').Strategy
+var MongoClient = require('mongodb').MongoClient
+
+const client = new MongoClient(config.db_url(), {useNewUrlParser: true, useUnifiedTopology: true })
+
 
 // TODO handle error on /api/v1 route
 // TODO middleware authorization on POST, PUT, DELETE method
@@ -58,7 +62,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // TODO add secret for session and cookie, use same secret from config
 app.use(session({
   store: new MongoStore({
-    url: 'mongodb://localhost:27017/nasihat'
+    url: config.db_url(),
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   }),
   resave: true,
   saveUninitialized: true,
@@ -115,7 +121,14 @@ app.use(function (err, req, res, next) {
   })
 })
 
-app.listen(config.port, function () {
-  console.log('Example app listening on port ' + config.port + '!')
-})
+
+client.connect()
+  .then(client => {
+    const db = client.db('test')
+    app.locals.db = db
+    app.listen(config.port, function () {
+      console.log('Example app listening on port ' + config.port + '!')
+    })
+  })
+  .catch(error => console.error(error));
 
