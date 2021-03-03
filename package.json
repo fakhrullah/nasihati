@@ -15,7 +15,7 @@
     "passport": "^0.3.2",
     "passport-http-header-token": "^1.1.0",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.0-beta6",
+    "pug": "^3.0.1",
     "request": "^2.79.0",
     "svg-captcha": "^1.2.1"
   },
