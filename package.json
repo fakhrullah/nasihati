@@ -10,7 +10,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "method-override": "^2.3.7",
-    "moment": "^2.25.1",
+    "moment": "^2.29.2",
     "mongodb": "^3.5.7",
     "passport": "^0.3.2",
     "passport-http-header-token": "^1.1.0",
